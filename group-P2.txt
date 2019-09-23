@@ -1,0 +1,122 @@
+Traffic officer operating in a city is too ambiguous.
+Revise ISA, do i need one or more?
+Ask about the individual vs group work
+Weak entities
+
+
+
+CREATE TABLE Review_Assoc(
+rid CHAR(11)
+rdate CHAR(11)
+rtext CHAR(20)
+rscore INT
+rno INT
+PRIMARY KEY(rid)
+FOREIGN KEY (rno REFERENCES rides))
+
+CREATE TABLE Review_Reviewer(
+rid CHAR(11)
+rdate CHAR(11)
+rtext CHAR(20)
+rscore INT
+email CHAR(25) NOT NULL 
+PRIMARY KEY(rid)
+FORIEGN KEY(email REFERENCES Members)
+
+CREATE TABLE Rides_Assoc(
+rno INT
+price Float
+rdate CHAR(11)
+seats INT
+lugDesc char(25)
+cno INT
+PRIMARY KEY(rno)
+FOREIGN KEY(cno) REFERENCES Cars)
+
+CREATE TABLE Rides_Offer(
+rno INT
+price Float
+rdate CHAR(11)
+seats INT
+lugDesc char(25)
+licNo CHAR(11) NOT NULL
+PRIMARY KEY(rno)
+FOREIGN KEY(licNo REFERENCES DRIVERS ON DELETE NO ACTION)
+)
+
+CREATE TABLE Rides_dst(
+rno INT
+price Float
+rdate CHAR(11)
+seats INT
+lugDesc char(25)
+lcode NOT NULL
+PRIMARY KEY(rno)
+FOREIGN KEY(lcode REFERENCES LOCATIONS ON DELETE NO ACTION)
+)
+
+CREATE TABLE Bookings_reserve(
+bno INT
+seats INT
+cost FLOAT
+email CHAR(25) NOT NULL
+PRIMARY KEY (bno)
+FOREIGN KEY (email ON DELETE NO ACTION)
+)
+
+CREATE TABLE Bookings_isFor(
+bno INT
+seats INT
+cost FLOAT
+rno INT NOT NULL
+PRIMARY KEY(bno)
+FOREIGN KEY(rno REFERENCES rides ON DELETE NO ACTION)
+
+CREATE TABLE Bookings_pickup (
+bno INT
+seats INT
+cost FLOAT
+lcode INT NOT NULL
+PRIMARY KEY(bno)
+FOREIGN KEY(lcode REFERENCES Locations ON DELETE NO ACTION))
+
+CREATE TABLE requests(
+lcode INT
+amount FLOAT
+qdate CHAR(11)
+email CHAR(25)
+PRIMARY KEY(lcode, email)
+FORIEGN KEY(lcode REFERENCES Locations, email REFERENCES MEMBERS)
+
+CREATE TABLE Locations(
+lcode INT
+address CHAR(20)
+prov (25)
+city CHAR(25)
+PRIMARY KEY(lcode))
+
+CREATE TABLE Cars_Register(
+cno INT
+make CHAR(25)
+model CHAR(25)
+year CHAR(4)
+seats INT
+licNo CHAR(12)
+gdate CHAR(10)
+PRIMARY KEY(cno)
+FOREIGN KEY(licNo REFERENCES DRIVERS)
+)
+
+CREATE TABLE Drivers(
+email CHAR(25) NOT NULL
+licNo CHAR(12)
+PRIMARY KEY (email),
+FOREIGN KEY (email REFERENCES Member ON DELETE CASCADE)
+)
+
+
+CREATE TABLE Members(
+email CHAR(25)
+name CHAR(20)
+phone CHAR(10)
+)
