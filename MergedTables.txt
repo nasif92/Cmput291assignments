@@ -5,13 +5,10 @@ rtext CHAR(20)
 rscore INT
 rno INT
 email CHAR(25) NOT NULL
-PRIMARY KEY(rid)
-FOREIGN KEY (rno) REFERENCES rides, (email) REFERENCES Members))
+PRIMARY KEY (rid)
+FOREIGN KEY (rno) REFERENCES rides,
+FOREIGN KEY (email) REFERENCES Members))
 
-CREATE TABLE enroute( Dark Red
-rno INT
-lcode INT
-FOREIGN KEY((rno) REFERENCES rides, (lcode) REFERNCES Locations)
 
 CREATE TABLE Rides_Assoc/offer/dst( light Brown
 rno INT
@@ -20,12 +17,24 @@ rdate CHAR(11)
 seats INT
 lugDesc char(25)
 cno INT
-licNo CHAR(11) NOT NULL
 lcode INT NOT NULL
 PRIMARY KEY(rno)
 FOREIGN KEY(cno REFERENCES Cars, 
-FOREIGN KEY (licNo) REFERENCES DRIVERS ON DELETE NO ACTION, 
+FOREIGN KEY (email) REFERENCES MEMBERS ON DELETE NO ACTION, 
 FOREIGN KEY (lcode) REFERENCES LOCATIONS ON DELETE NO ACTION)
+
+CREATE TABLE enroute( Dark Brown
+rno INT
+lcode INT
+FOREIGN KEY (rno) REFERENCES rides,
+FOREIGN KEY (lcode) REFERNCES Locations)
+
+CREATE TABLE Locations( Orange
+lcode INT
+address CHAR(20)
+prov (25)
+city CHAR(25)
+PRIMARY KEY(lcode))
 
 CREATE TABLE Bookings_reserve( Red
 bno INT
@@ -40,31 +49,11 @@ FOREIGN KEY (rno) REFERENCES rides ON DELETE NO ACTION,
 FOREIGN KEY (lcode) REFERENCES Locations)
 )
 
-CREATE TABLE requests( Pink
-lcode INT
-amount FLOAT
-qdate CHAR(11)
+CREATE TABLE Members( Blue
 email CHAR(25)
-PRIMARY KEY(lcode, email)
-FORIEGN KEY(lcode) REFERENCES Locations, (email) REFERENCES MEMBERS)
-
-CREATE TABLE Locations( Orange
-lcode INT
-address CHAR(20)
-prov (25)
-city CHAR(25)
-PRIMARY KEY(lcode))
-
-CREATE TABLE Cars_Register( Yellow
-cno INT
-make CHAR(25)
-model CHAR(25)
-year CHAR(4)
-seats INT
-licNo CHAR(12)
-gdate CHAR(10)
-PRIMARY KEY(cno)
-FOREIGN KEY(licNo) REFERENCES DRIVERS)
+name CHAR(20)
+phone CHAR(10)
+PRIMARY KEY (email)
 )
 
 CREATE TABLE Drivers( Green
@@ -74,11 +63,31 @@ PRIMARY KEY (email),
 FOREIGN KEY (email) REFERENCES Member ON DELETE CASCADE)
 )
 
-CREATE TABLE Members( 
-email CHAR(25)
-name CHAR(20)
-phone CHAR(10)
-PRIMARY KEY (email)
-)
  
+
+CREATE TABLE requests( Pink
+lcode INT
+amount FLOAT
+qdate DATE
+email CHAR(25)
+PRIMARY KEY (lcode, email)
+FORIEGN KEY (lcode) REFERENCES Locations, 
+FORIEGN KEY (email) REFERENCES MEMBERS)
+
+
+
+CREATE TABLE Cars_Register( Yellow
+cno INT
+make CHAR(25)
+model CHAR(25)
+year CHAR(4)
+seats INT
+email CHAR(25) NOT NULL
+gdate CHAR(10)
+PRIMARY KEY(cno)
+FOREIGN KEY(email) REFERENCES Members NOT NULL)
+)
+
+
+
 
