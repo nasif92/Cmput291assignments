@@ -12,7 +12,7 @@ that there needs to be a one to many relationship from vehicle to vehicle regist
 good to me.
  
 
-Nasif Hossain(nhossain) comments on Yazan(yalmuhta):
+Nasif Hossain(nhossain) comments on Yazan Al-Muhtasib(yalmuhta):
 
 Some details on how traffic officer as an entity has city as an attribute would be great for describing how each officer has a city where he operates. Vehicles can have multiple registrations are not present as a constraint in the relation between vehicles and registration. Since License class is a weak entity, it has to be bolded from the relation. However, since it is stated that a unique ID is present in every license class, putting that as a weak entity is not necessary. Other than that, everything else seems okay.
 Some details on how traffic officer as an entity has city as an attribute would be great
