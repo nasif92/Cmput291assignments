@@ -36,3 +36,27 @@ I'm not sure each Ticket is given_to each vehicle; I expressed this as each Tick
 given_to the vehicle's registration. Why is LicenseClass a weak entity? I think the city
 attribute of Traffic_Officer should instead be a set-value attribute, since a
 Traffic_Officer may operate in more than one city. Looks good otherwise.
+
+
+Yazan Al-Muhtaseb(yalmuhta) comments on Jawad Rizvi (jnrizvi):
+
+For traffic officier, are you sure that oper_city is actually a set value attribute? Are there multiple cities allowed for one officier?
+Check Clarifcations of Sept20: (1) ...and not all drivers have drivers liscence. You have a participation constraint on obtains.
+Additionally, the Clarifications state that "not all vehicles are registered, you have a participation on register_v.
+Clarification (4) states that each drivers license has one class, you do not have an arrow from has_a to license_class
+dp_notice has no keys, could it be something other than an entity?
+Person doesnt have any keys?
+Wouldnt there be a participation constraint for both partners in a marriage?
+Could license class possibly be a weak entity?
+
+Yazan Al-Muhtaseb(yalmuhta) comments on Nasif Hossain (nhossain):
+
+City does not have any attributes, I recommend that you give the city as an attribute to the officier.
+Wouldnt there be a participation constraint for both partners in a marriage?
+Drivers do not have to get drivers licenses based off of the information of the clarification given in assignment details.
+Each drivers license must have one class only, an arrow along with a participation constraint solves this.
+Could license class possibly be a weak entity?
+Note that not all cars are registered in the clarification, and do drivers actually have the register relationship?
+
+
+
