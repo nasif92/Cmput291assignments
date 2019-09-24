@@ -1,12 +1,39 @@
 Nasif Hossain(nhossain) comments on Jawad Rizvi(jnrizvi): 
 
-In traffic officers where it's stated that each traffic officer has a city where the officer operates, it's given as a set attribute in the ER diagram. I would prefer that as a separate entity having a participation constraint from traffic officers. I like how he put each entity as an ISA relationship from the "super entity"  person. He put a constraint and one to many relationship from mother to birth registration following the statement: "A birth may be registered without a father but always has a mother." I believe it would be a participation constraint from mothers registering for birth. I also believe that there needs to be a one to many relationship from vehicle to vehicle registration as "a vehicle can have multiple registrations. Other than these points, everything else seems good to me.
+In traffic officers where it's stated that each traffic officer has a city where the
+officer operates, it's given as a set attribute in the ER diagram. I would prefer that as
+a separate entity having a participation constraint from traffic officers. I like how he
+put each entity as an ISA relationship from the "super entity"  person. He put a
+constraint and one to many relationship from mother to birth registration following the
+statement: "A birth may be registered without a father but always has a mother." I believe
+it would be a participation constraint from mothers registering for birth. I also believe
+that there needs to be a one to many relationship from vehicle to vehicle registration as
+"a vehicle can have multiple registrations. Other than these points, everything else seems
+good to me.
  
 
 Nasif Hossain(nhossain) comments on Yazan(yalmuhta):
 
-Some details on how traffic officer as an entity has city as an attribute would be great for describing how each officer has a city where he operates. I believe the attribute should only be "marriage" not "marriages" which already has a relationship with partner 1 and 2 with a participation constraint. Vehicles can have multiple registrations are not present as a constraint in the relation between vehicles and registration. Since License class is a weak entity, it has to be bolded from the relation. However, since it is stated that a unique ID is present in every license class, putting that as a weak entity is not necessary. Other than that, everything else seems okay.
+Some details on how traffic officer as an entity has city as an attribute would be great
+for describing how each officer has a city where he operates. I believe the attribute
+should only be "marriage" not "marriages" which already has a relationship with partner 1
+and 2 with a participation constraint. Vehicles can have multiple registrations are not
+present as a constraint in the relation between vehicles and registration. Since License
+class is a weak entity, it has to be bolded from the relation. However, since it is stated
+that a unique ID is present in every license class, putting that as a weak entity is not
+necessary. Other than that, everything else seems okay.
 
 Jawad Rizvi(jnrizvi) comments on Nasif Hossain(nhossain):
 
+The arrow integrity constraint is missing from register_by to birth. I don't think you should have a relationship connecting Traffic Officer and city; there is also no need
+for a particiaption constraint that says Traffic officer operates on exactly one city.
+Please make sure the file is correctly oriented. Looks good otherwise.
+
 Jawad Rizvi(jnrizvi) comments on Yazan Al-Muhtasib(yalmuhta):
+
+Your diagram suggests that each vehicle is owned_by exactly one driver, but this is not
+the case. Also, avoid crossing over lines over, as this may make the diagram disorganized.
+I'm not sure each Ticket is given_to each vehicle; I expressed this as each Ticket is
+given_to the vehicle's registration. Why is LicenseClass a weak entity? I think the city
+attribute of Traffic_Officer should instead be a set-value attribute, since a
+Traffic_Officer may operate in more than one city. Looks good otherwise.
