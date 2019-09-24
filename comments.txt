@@ -5,7 +5,7 @@ In traffic officers where it's stated that each traffic officer has a city where
 
 Nasif Hossain(nhossain) comments on Yazan(yalmuhta):
 
-Some details on how traffic officer as an entity has city as an attribute would be great for describing how each officer has a city where he operates. I believe the attribute should only be "marriage" not "marriages" which already has a relationship with partner 1 and 2 with a participation constraint. Vehicles can have multiple registrations are not present as a constraint in the relation between vehicles and registration. Since License class is a weak entity, it has to be bolded from the relation. However, since it is stated that a unique ID is present in every license class, putting that as a weak entity is not necessary. Other than that, everything else seems okay.
+Some details on how traffic officer as an entity has city as an attribute would be great for describing how each officer has a city where he operates. Vehicles can have multiple registrations are not present as a constraint in the relation between vehicles and registration. Since License class is a weak entity, it has to be bolded from the relation. However, since it is stated that a unique ID is present in every license class, putting that as a weak entity is not necessary. Other than that, everything else seems okay.
 
 Jawad Rizvi(jnrizvi) comments on Nasif Hossain(nhossain):
 
