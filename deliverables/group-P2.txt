@@ -1,46 +1,8 @@
-CREATE TABLE Review_Assoc/Ride_reviews( -- Black
-	rid CHAR(11),
-	rdate CHAR(11),
-	rtext CHAR(20),
-	rscore INT,
-	rno INT,
-	email CHAR(25) NOT NULL,
-	PRIMARY KEY (rid),
-	FOREIGN KEY (rno) REFERENCES rides,
-	FOREIGN KEY (email) REFERENCES Members
-);
+-- The color next to each CREATE TABLE is for identifying how what parts are included
+-- from the ER diagram image. See part2_reference.png
 
 
-CREATE TABLE Rides_Assoc/offer/dst( -- light Brown
-	rno INT,
-	price Float,
-	rdate CHAR(11),
-	seats INT,
-	lugDesc CHAR(25),
-	cno INT,
-	lcode INT NOT NULL,
-	PRIMARY KEY (rno),
-	FOREIGN KEY (cno) REFERENCES Cars, 
-	FOREIGN KEY (email) REFERENCES MEMBERS ON DELETE NO ACTION, 
-	FOREIGN KEY (lcode) REFERENCES LOCATIONS ON DELETE NO ACTION
-);
-
-CREATE TABLE enroute( -- Dark Brown
-	rno INT,
-	lcode INT,
-	FOREIGN KEY (rno) REFERENCES rides,
-	FOREIGN KEY (lcode) REFERNCES Locations
-);
-
-CREATE TABLE Locations( -- Orange
-	lcode INT,
-	address CHAR(20),
-	prov (25),
-	city CHAR(25),
-	PRIMARY KEY (lcode)
-);
-
-CREATE TABLE Bookings_reserve( -- Red
+CREATE TABLE booked_reservations( -- Red
 	bno INT,
 	seats INT,
 	cost REAL,
@@ -50,22 +12,30 @@ CREATE TABLE Bookings_reserve( -- Red
 	PRIMARY KEY (bno),
 	FOREIGN KEY (email) ON DELETE NO ACTION,
 	FOREIGN KEY (rno) REFERENCES rides ON DELETE NO ACTION, 
-	FOREIGN KEY (lcode) REFERENCES Locations
+	FOREIGN KEY (lcode) REFERENCES locations
 );
 
-CREATE TABLE Members( -- Blue
+
+CREATE TABLE members( -- Blue
 	email CHAR(25),
 	name CHAR(20),
 	phone CHAR(10),
 	PRIMARY KEY (email)
 );
 
-CREATE TABLE Drivers( -- Green
+
+CREATE TABLE ride_reviews( -- Black
+	rid CHAR(11),
+	rdate CHAR(11),
+	rtext CHAR(20),
+	rscore INT,
+	rno INT,
 	email CHAR(25) NOT NULL,
-	licNo CHAR(12),
-	PRIMARY KEY (email),
-	FOREIGN KEY (email) REFERENCES Member ON DELETE CASCADE
+	PRIMARY KEY (rid),
+	FOREIGN KEY (rno) REFERENCES rides,
+	FOREIGN KEY (email) REFERENCES members
 );
+
 
 CREATE TABLE requests( -- Pink
 	lcode INT,
@@ -73,11 +43,52 @@ CREATE TABLE requests( -- Pink
 	qdate DATE,
 	email CHAR(25),
 	PRIMARY KEY (lcode, email),
-	FORIEGN KEY (lcode) REFERENCES Locations, 
-	FORIEGN KEY (email) REFERENCES MEMBERS
+	FORIEGN KEY (lcode) REFERENCES locations, 
+	FORIEGN KEY (email) REFERENCES members
 );
 
-CREATE TABLE Cars_Register( -- Yellow
+
+CREATE TABLE drivers( -- Green
+	email CHAR(25) NOT NULL,
+	licNo CHAR(12),
+	PRIMARY KEY (email),
+	FOREIGN KEY (email) REFERENCES members ON DELETE CASCADE
+);
+
+
+CREATE TABLE rides ( -- light Brown
+	rno INT,
+	price REAL,
+	rdate CHAR(11),
+	seats INT,
+	lugDesc CHAR(25),
+	cno INT,
+	lcode INT NOT NULL,
+	PRIMARY KEY (rno),
+	FOREIGN KEY (cno) REFERENCES registered_cars, 
+	FOREIGN KEY (email) REFERENCES drivers ON DELETE NO ACTION, 
+	FOREIGN KEY (lcode) REFERENCES locations ON DELETE NO ACTION
+);
+
+
+CREATE TABLE routes( -- Dark Brown
+	rno INT,
+	lcode INT,
+	FOREIGN KEY (rno) REFERENCES rides,
+	FOREIGN KEY (lcode) REFERNCES locations
+);
+
+
+CREATE TABLE locations( -- Orange
+	lcode INT,
+	address CHAR(20),
+	prov (25),
+	city CHAR(25),
+	PRIMARY KEY (lcode)
+);
+
+
+CREATE TABLE registered_cars ( -- Yellow
 	cno INT,
 	make CHAR(25),
 	model CHAR(25),
@@ -86,7 +97,7 @@ CREATE TABLE Cars_Register( -- Yellow
 	email CHAR(25) NOT NULL,
 	gdate CHAR(10),
 	PRIMARY KEY(cno),
-	FOREIGN KEY(email) REFERENCES Members NOT NULL
+	FOREIGN KEY(email) REFERENCES drivers NOT NULL
 );
 
 
