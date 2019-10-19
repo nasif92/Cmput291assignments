@@ -1,27 +1,45 @@
-
+import sqlite3
 
 def main():
+	connection = sqlite3.connect("./mp1.db")
+	cursor = connection.cursor()
+	cursor.execute("PRAGMA foreign_keys=ON;")
+	connection.commit()
+
 	# first screen
 	print("Welcome to the program.")
-	print("Enter your login details:")
-	uid = input("User ID: ")
-	pwd = input("Password: ")
-	# compare these uid and pwd input variables with uid and pwd inside the users table.
-	# be able to get the user type (Eg. registry agent) and put that into a variable
-
-	operation_choice(user_type="registry agent")
-
 	
 
-	# The operations are different for each user type
+	prompt = ''
+	
+	while prompt != 'q':
+		print()
+		print("Enter your login details:")
+		uid = input("User ID: ")
+		pwd = input("Password: ")
+		print()
+		# compare these uid and pwd input variables with uid and pwd inside the users table.
+		# be able to get the user type (Eg. registry agent) and put that into a variable
+		cursor.execute("select utype from users where uid=? and pwd=?", (uid, pwd))
+		utype = cursor.fetchall()
+		if not utype:
+			print("The User Id and Password combination did not return any results.")
+		else:
+			operation_choice(user_type="registry agent")
+		prompt = input("Press enter to continue, or q to exit this program: ")
+		
 	
 
 	
-
 	
+
+
+
 
 
 def operation_choice(user_type):
+	# The operations are different for each user type
+
 	options_list = []
 	print("Choose your operations: ")
 
@@ -37,15 +55,15 @@ def operation_choice(user_type):
 			"Process a payment",
 			"Get a driver abstract",
 		]
-	else if user_type == "traffic officer":
+	elif user_type == "traffic officer":
 		print("poooooop")
 		options_list = [
 			"Issue a ticket",
 			"Find a car owner"
 		]
 
-	for i in range(len(options)):
-		print(options[i])
+	for i in range(len(options_list)):
+		print(options_list[i])
 
 
 def register_a_birth():
