@@ -25,7 +25,9 @@ def main():
 		if not utype:
 			print("The User Id and Password combination did not return any results.")
 		else:
-			operation_choice(user_type="registry agent")
+			# print(utype[0][0])
+			operation_choice(utype[0][0])
+
 		prompt = input("Press enter to continue, or q to exit this program: ")
 		
 	
@@ -41,11 +43,11 @@ def operation_choice(user_type):
 	# The operations are different for each user type
 
 	options_list = []
-	print("Choose your operations: ")
+	print("Select an operation: ")
+	print()
 
-
-	if user_type == "registry agent":
-		print("blah blah")
+	if user_type == "a":
+		print("Operations for Registry Agents:")
 
 		options_list = [
 			"Register a birth", 
@@ -55,8 +57,8 @@ def operation_choice(user_type):
 			"Process a payment",
 			"Get a driver abstract",
 		]
-	elif user_type == "traffic officer":
-		print("poooooop")
+	elif user_type == "o":
+		print("Operations for Traffic Officers:")
 		options_list = [
 			"Issue a ticket",
 			"Find a car owner"

@@ -16,4 +16,13 @@
 
 -- users(uid, pwd, utype, fname, lname, city)
 
+
+-- persons
 insert or replace into persons values ("Richard", "Wilson", "1983-04-22", "Seattle, Washington", "888 Cedar Street", "123-456-7899");
+
+
+-- births
+insert or replace into births values (1234567, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
+
+-- users
+insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
