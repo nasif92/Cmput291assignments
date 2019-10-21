@@ -22,10 +22,20 @@ insert or replace into persons values ("Richard", "Wilson", "1983-04-22", "Seatt
 
 insert or replace into persons values ("Stewart", "Smith", "1989-07-14", "Brampton, Ontario", "321 Fairway Drive", "587-979-3434");
 
--- births
-insert or replace into births values (1234567, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
+insert or replace into persons values ("Cassandra", "Cage", "1993-01-01", "Los Angeles, California", "747 Meadowlark Road", "111-222-3333");
 
-insert or replace into births values (7654321, "Stewart", "Smith", "1989-07-14", "Brampton Ontario", "m", "Fred", "Smith", "Carla", "Smith");
+-- births
+insert or replace into births values (888888888, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
+
+insert or replace into births values (76543219, "Stewart", "Smith", "1989-07-14", "Brampton Ontario", "m", "Fred", "Smith", "Carla", "Smith");
+
+insert or replace into births values (79685715, "Cassandra", "Cage", "1993-01-01", "Los Angeles, California", "f", "Johnny", "Cage", "Sonya", "Blade");
+
+-- vehicles
+insert or replace into vehicles values (7777777, "Porsche", "Boxter", 2017, "pink");
+
+-- registrations
+insert or replace into registrations values (999999999, "2017-06-19", "2020-06-19", "CASSIE", 7777777, "Cassandra", "Cage");
 
 -- users
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");

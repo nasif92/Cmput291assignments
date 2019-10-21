@@ -1,6 +1,10 @@
 import sqlite3
 
+connection = None
+cursor = None
+
 def main():
+	global connection, cursor
 	connection = sqlite3.connect("./mp1.db")
 	cursor = connection.cursor()
 	cursor.execute("PRAGMA foreign_keys=ON;")
@@ -69,17 +73,32 @@ def operation_choice(user_type):
 		for i in range(len(options_list)):
 			print(str(i+1)+". "+ options_list[i])
 		print()
-		choice = intput("Enter the number corresponding to the desired operation: ")
-		if choice == 1:
+		choice = input("Enter the number corresponding to the desired operation: ")
+		if choice == "1":
 			issue_ticket()
-		elif choice == 2:
+		elif choice == "2":
 			find_car_owner()
 
 
 	
 
 def issue_ticket():
-	pass
+	global cursor, connection
+	regno = input("Please provide a registration number to view information: ")
+	cursor.execute('''select fname, lname, make, model, year, color 
+					  from registrations join vehicles using (vin)
+					  where regno=?''', (regno,))
+	rows = cursor.fetchall()
+	if not rows:
+		print("The provided registration number does not exist")
+	else:
+		info_for_regno = rows[0]
+		print("Information for registration number:", regno)
+		print()
+		for column in info_for_regno:
+			print(column, end="  ")
+		print()
+	
 
 def find_car_owner():
 	pass
