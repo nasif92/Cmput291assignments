@@ -20,9 +20,14 @@
 -- persons
 insert or replace into persons values ("Richard", "Wilson", "1983-04-22", "Seattle, Washington", "888 Cedar Street", "123-456-7899");
 
+insert or replace into persons values ("Stewart", "Smith", "1989-07-14", "Brampton, Ontario", "321 Fairway Drive", "587-979-3434");
 
 -- births
 insert or replace into births values (1234567, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
 
+insert or replace into births values (7654321, "Stewart", "Smith", "1989-07-14", "Brampton Ontario", "m", "Fred", "Smith", "Carla", "Smith");
+
 -- users
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
+
+insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");

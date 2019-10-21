@@ -48,7 +48,7 @@ def operation_choice(user_type):
 
 	if user_type == "a":
 		print("Operations for Registry Agents:")
-
+		print()
 		options_list = [
 			"Register a birth", 
 			"Register a marriage", 
@@ -57,17 +57,32 @@ def operation_choice(user_type):
 			"Process a payment",
 			"Get a driver abstract",
 		]
+		for i in range(len(options_list)):
+			print(str(i+1)+". "+ options_list[i])
+		print()
 	elif user_type == "o":
 		print("Operations for Traffic Officers:")
 		options_list = [
 			"Issue a ticket",
 			"Find a car owner"
 		]
+		for i in range(len(options_list)):
+			print(str(i+1)+". "+ options_list[i])
+		print()
+		choice = intput("Enter the number corresponding to the desired operation: ")
+		if choice == 1:
+			issue_ticket()
+		elif choice == 2:
+			find_car_owner()
 
-	for i in range(len(options_list)):
-		print(options_list[i])
 
+	
 
+def issue_ticket():
+	pass
+
+def find_car_owner():
+	pass
 def register_a_birth():
 	pass
 
