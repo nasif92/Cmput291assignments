@@ -111,9 +111,13 @@ def issue_ticket():
 		prompt = input("(Press Enter to continue, q to exit): ")
 		if prompt == "q":
 			break
+
 		print("Please provide the following information:\n")
 		vdate = input("Violation date: ")
+
+		# The violation date should be set to today's date if it is not provided.
 		violation = input("Violation (text): ")
+		
 		fine = input("Fine amount: ")
 		print()
 		
