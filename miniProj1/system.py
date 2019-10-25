@@ -186,20 +186,20 @@ def find_car_owner():
 
 	finalQuery = finalQuery[:-5]
 	finalQuery += ";"
-	print(finalQuery)
+	# print(finalQuery)
 
-	# cursor.execute(finalQuery, parameters)
-	# rows = cursor.fetchall()
-	# count = 0
-	# for match in rows:
-	# 	count += 1
+	cursor.execute(finalQuery, parameters)
+	rows = cursor.fetchall()
+	count = 0
+	for match in rows:
+		count += 1
 
-	# if count > 4:
-	# 	# print(make, model, year, color, plate)
-	# 	pass
-	# else:
-	# 	# print(make, model, year, color, plate, regdate, expiry, fname, lname)
-	# 	pass
+	if count > 4:
+		# print(make, model, year, color, plate)
+		pass
+	else:
+		# print(make, model, year, color, plate, regdate, expiry, fname, lname)
+		pass
 
 
 	return True
