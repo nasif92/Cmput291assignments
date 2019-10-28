@@ -12,27 +12,16 @@ def main():
 	connection.commit()
 
 	# first screen
-	print("Welcome to the program.")
+	print("\nWelcome to the program.")
 	
-	valid = False
-	while valid == False:
-		print("\nEnter your login details:")
-		uid = input("User ID: ")
-		uid = uid.lower()
-		pwd = input("Password: ")
-		print()
-		cursor.execute("select utype from users where uid=? and pwd=?", (uid, pwd))
-		utype = cursor.fetchall()
-		if not utype:
-			print("The User Id and Password combination did not return any results.")
-		else:
-			valid = True
+	utype = login_screen()
 
-	prompt = ''
-	while prompt != 'q':
-		operation_choice(utype[0][0])
+	while utype != 'q':
+		logout = operation_choice(utype)
+		if logout == True:
+			utype = login_screen()
 
-		prompt = input("Press enter to continue, or q to close the program: ")
+		# prompt = input("Press enter to continue, or q to close the program: ")
 		
 	
 
@@ -40,7 +29,29 @@ def main():
 	
 
 
+def login_screen():
+	valid = False
+	utype = ""
+	while valid == False:
+		print("\nEnter login details, or q to close the program:")
+		uid = input("User ID: ")
+		uid = uid.lower()
+		pwd = input("Password: ")
+		print()
 
+		if uid == "q" or pwd == "q":
+			utype = "q"
+			break
+		
+		cursor.execute("select utype from users where uid=? and pwd=?", (uid, pwd))
+		rows = cursor.fetchall()
+		if not rows:
+			print("The User Id and Password combination did not return any results.")
+		else:
+			valid = True
+			utype = rows[0][0]
+
+	return utype
 
 
 def operation_choice(user_type):
@@ -61,81 +72,83 @@ def operation_choice(user_type):
 			"Process a payment",
 			"Get a driver abstract",
 		]
-		for i in range(len(options_list)):
-			print(str(i+1)+". "+ options_list[i])
-		print()
+		
+		complete = False
+		while not complete:
+			for i in range(len(options_list)):
+				print(str(i+1)+". "+ options_list[i])
+			print()
+
+			print("Enter the number corresponding to the desired operation, ")
+			choice = input("Or enter l to logout: ")
+			if choice == "1":
+				complete = register_a_birth()
+			elif choice == "2":
+				pass
+			elif choice == "3":
+				pass
+			elif choice == "4":
+				pass
+			elif choice == "5":
+				pass
+			elif choice == "6":
+				complete = get_driver_abstract()
+			elif choice == "l":
+				print("\nYou have logged out.\n")
+				break
+
 	elif user_type == "o":
 		print("Operations for Traffic Officers:")
+		print()
 		options_list = [
 			"Issue a ticket",
 			"Find a car owner"
 		]
-		for i in range(len(options_list)):
-			print(str(i+1)+". "+ options_list[i])
-		print()
+		
 		complete = False
 		while not complete:
+			for i in range(len(options_list)):
+				print(str(i+1)+". "+ options_list[i])
+			print()
+
 			print("Enter the number corresponding to the desired operation, ")
-			choice = input("Or enter q to exit this prompt: ")
+			choice = input("Or enter l to logout: ")
 			if choice == "1":
 				complete = issue_ticket()
 			elif choice == "2":
 				complete = find_car_owner()
-			elif choice == "q":
+			elif choice == "l":
+				print("\nYou have logged out.\n")
 				break
 
+	return True
+
+def get_driver_abstract():
+	global cursor, connection
+	fname = input("Enter a first name: ")
+	lname = input("Enter a last name: ")
+	# Driver Abstract: which includes the number of tickets, the number of demerit notices,
+	# the total number of demerit points received both within the past two years and within the lifetime.
 
 	
-
-def issue_ticket():
-	global cursor, connection
-	######## Make sure to change input value for regno to int!! #######
-	regno = input("\nPlease provide a registration number to view information: ")
-	cursor.execute('''select fname, lname, make, model, year, color 
-					  from registrations join vehicles using (vin)
-					  where regno=?''', [regno])
+	cursor.execute("select regno from registrations where fname=? and lname=?", (fname, lname))
 	rows = cursor.fetchall()
 	if not rows:
-		print("The provided registration number does not exist")
+		print("\nThe first and last name entered did not match any registration number.\n")
 		return False
 
-	info_for_regno = rows[0]
-	success = False
-	while success == False:
-		print("\nInformation for registration number:", regno)
-		print()
-		for column in info_for_regno:
-			print(column, end="  ")
-		print("\n")
-		print("Issue a ticket to registration number: "+ str(regno) + "?")
-		prompt = input("(Press Enter to continue, q to exit): ")
-		if prompt == "q":
-			break
-
-		print("Please provide the following information:\n")
-		vdate = input("Violation date: ")
-
-		####### The violation date should be set to today's date if it is not provided! #######
-		violation = input("Violation (text): ")
-		
-		fine = input("Fine amount: ")
-		print()
-		
-		# generate a random tno, which might not be unique. An exception is used to handle this.
-		tno = random.sample(range(100000, 999999), 1)[0]
-
-		try:
-			cursor.execute('''insert into tickets values
-							   (?, ?, ?, ?, ?);''', (tno, regno, fine, violation, vdate))
-			connection.commit()
-			print("A ticket (tno: "+str(tno)+ ") has been issued to registration number " + regno + ".")
-			success = True
-		except sqlite3.IntegrityError as nonUniqueTNO:
-			print("An error occured while generating a TNO. Please try again.")
-
+	print(rows)
+	getCount = '''
+				select count(t.tno)
+				from registrations r join tickets t using(regno)
+				where r.regno=t.regno and r.fname=? and r.lname=?
+			   '''
+	cursor.execute(getCount, [fname, lname])
+	ticketCount = cursor.fetchall()[0][0]
+	print(ticketCount)
 	return True
-	
 
+	
 def find_car_owner():
 	global cursor, connection
 	# user provides one or more of make, model, year, color, and plate.
@@ -204,9 +217,60 @@ def find_car_owner():
 
 	return True
 
+def issue_ticket():
+	global cursor, connection
+	######## Make sure to change input value for regno to int!! #######
+	regno = int(input("Please provide a registration number to view information: "))
+	cursor.execute('''select fname, lname, make, model, year, color 
+					  from registrations join vehicles using (vin)
+					  where regno=?''', [regno])
+	rows = cursor.fetchall()
+	if not rows:
+		print("The provided registration number does not exist")
+		return False
+
+	info_for_regno = rows[0]
+	success = False
+	while success == False:
+		print("\nInformation for registration number:", regno)
+		print()
+		for column in info_for_regno:
+			print(column, end="  ")
+		print("\n")
+		print("Issue a ticket to registration number: "+ str(regno) + "?")
+		prompt = input("(Press Enter to ticket, q to exit): ")
+		if prompt == "q":
+			break
+
+		print("Please provide the following information:\n")
+		vdate = input("Violation date: ")
+
+		####### The violation date should be set to today's date if it is not provided! #######
+		violation = input("Violation (text): ")
+		
+		fine = input("Fine amount: ")
+		print()
+		
+		# generate a random tno, which might not be unique. An exception is used to handle this.
+		tno = random.sample(range(100000, 999999), 1)[0]
+
+		try:
+			cursor.execute('''insert into tickets values
+							   (?, ?, ?, ?, ?);''', (tno, regno, fine, violation, vdate))
+			connection.commit()
+			print("A ticket (tno: "+str(tno)+ ") has been issued to registration number " + str(regno) + ".")
+			success = True
+		except sqlite3.IntegrityError as nonUniqueTNO:
+			print("An error occured while generating a TNO. Please try again.")
+
+	return True
+	
+
+
+
 
 
 def register_a_birth():
-	pass
+	return True
 
 main()

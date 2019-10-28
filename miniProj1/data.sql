@@ -33,9 +33,17 @@ insert or replace into births values (79685715, "Cassandra", "Cage", "1993-01-01
 
 -- vehicles
 insert or replace into vehicles values (7777777, "Porsche", "Boxter", 2017, "pink");
+insert or replace into vehicles values (1717171, "Audi", "R8", 2019, "purple");
 
 -- registrations
 insert or replace into registrations values (999999999, "2017-06-19", "2020-06-19", "CASSIE", 7777777, "Cassandra", "Cage");
+insert or replace into registrations values (191919191, "2019-03-07", "2023-03-07", "LUVU2", 1717171, "Cassandra", "Cage");
+
+-- tickets
+insert or replace into tickets values (395121, 999999999, 150, "Speeding", "2019-08-22");
+insert or replace into tickets values (164186, 191919191, 250, "Red light violation", "2019-09-09");
+insert or replace into tickets values (853983, 191919191, 300, "Impaired driving", "2019-01-30");
+insert or replace into tickets values (365540, 999999999, 300, "Street racing", "2019-10-26");
 
 -- users
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
