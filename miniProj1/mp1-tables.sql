@@ -1,6 +1,3 @@
-.mode columns
-.headers on
-
 drop table if exists demeritNotices;
 drop table if exists tickets;
 drop table if exists registrations;
