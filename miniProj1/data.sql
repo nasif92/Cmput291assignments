@@ -18,9 +18,20 @@
 
 
 -- persons
+insert or replace into persons values ("Dwight", "Wilson", "1954-08-24", "Edison, New Jersey", "111 Boyle Street", "897-888-4343");
+insert or replace into persons values ("Andrea", "Wilson", "1956-01-12", "Manhattan, New York", "222 Aspen Avenue", "987-432-7654");
+
 insert or replace into persons values ("Richard", "Wilson", "1983-04-22", "Seattle, Washington", "888 Cedar Street", "123-456-7899");
 
+
+insert or replace into persons values ("Fred", "Smith", "1960-08-04", "Calgary, Alberta", "321 Fairway Drive", "474-131-2233");
+insert or replace into persons values ("Carla", "Smith", "1962-03-21", "Edmonton, Alberta", "321 Fairway Drive", "834-454-9999");
+
 insert or replace into persons values ("Stewart", "Smith", "1989-07-14", "Brampton, Ontario", "321 Fairway Drive", "587-979-3434");
+
+
+insert or replace into persons values ("Johnny", "Cage", "1966-05-11", "Phoenix, Arizona", "4312 Broadview Road", "231-451-6734");
+insert or replace into persons values ("Sonya", "Blade", "1969-04-09", "San Fransisco, California", "873 Allard Drive", "999-888-7777");
 
 insert or replace into persons values ("Cassandra", "Cage", "1993-01-01", "Los Angeles, California", "747 Meadowlark Road", "111-222-3333");
 
