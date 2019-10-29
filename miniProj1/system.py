@@ -1,5 +1,7 @@
 import sqlite3
 import random
+import time
+import datetime
 
 connection = None
 cursor = None
@@ -219,7 +221,7 @@ def find_car_owner():
 
 def issue_ticket():
 	global cursor, connection
-	######## Make sure to change input value for regno to int!! #######
+	
 	regno = int(input("Please provide a registration number to view information: "))
 	cursor.execute('''select fname, lname, make, model, year, color 
 					  from registrations join vehicles using (vin)
@@ -245,9 +247,11 @@ def issue_ticket():
 		print("Please provide the following information:\n")
 		vdate = input("Violation date: ")
 
-		####### The violation date should be set to today's date if it is not provided! #######
-		violation = input("Violation (text): ")
+		if vdate == "":
+			vdate = time.strftime("%Y-%m-%d")
 		
+		violation = input("Violation (text): ")
+
 		fine = input("Fine amount: ")
 		print()
 		
