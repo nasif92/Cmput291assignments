@@ -81,13 +81,13 @@ def getBirthInfo():
 #regno is unique
 #regplace is city of user
 #regdate is today's date
-
 def register_a_birth():
 	global cursor, connection
 
 	prompt = input ("Register for birth? (y/n)")
 	# have to find a unique registration number too
 	if prompt == 'Y' or prompt == 'y':
+		try:
 			print("Putting into births database ...")
 			# register that new person into registry
 			cursor.execute('''INSERT or replace INTO births
@@ -95,7 +95,8 @@ def register_a_birth():
 			# create a person				
 			connection.commit()
 			print("Well done! You have registered a new birth")
-			#print("Keys missing")
+		except:
+			print("There is an error in the implementation. Sorry :(")
 	else:
 		print("Alright!")
 
@@ -106,8 +107,14 @@ def register_marriage():
 	global cursor, connection
 	prompt = input ("Register marriage? (y/n) ")
 	if prompt is 'y' or prompt is 'Y':
-		p1_fname = input("First Name of partner 1: ")
-		p1_lname = input("Last Name of partner 1: ")
+		given = False
+		while not given:
+			p1_fname = input("First Name of partner 1: ")
+			p1_lname = input("Last Name of partner 1: ")
+			if p1_fname != "" and p1_lname != "":
+				given = True
+			else:
+				print("You have to provide partner 1's first name and last name")
 		if (getPerson(p1_fname, p1_lname)): # if partner1 is not a person, get the information about partner
 			print("Partner1's information is present in database")
 		else:
@@ -116,20 +123,26 @@ def register_marriage():
 			cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',partner1) # have to push parents to database
 			connection.commit()
 			print("Done! You created the partner 1's (%s %s)'s information" %(p1_fname,p1_lname))
-		p2_fname = input("First Name of partner 2: ")
-		p2_lname = input("Last Name of partner 1: ")
+		given = False
+		while not given:
+			p2_fname = input("First Name of partner 2: ")
+			p2_lname = input("Last Name of partner 2: ")
+			if p2_fname != "" and p2_lname != "":
+				given = True
+			else:
+				print("You have to provide partner 2's first name and last name")
 		if (getPerson(p2_fname, p2_lname)): # if partner2 is not a person, get the information about partner
 			print("Partner2's information is present in database")
 		else:
 			print("Person named %s %s is not there in your database. \nPlease provide the required information for creating a new person" %(p2_fname,p2_lname))
 			partner2 = createPerson(p2_fname,p2_lname,False)
-			cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',partner2) # have to push parents to database
+			cursor.execute('''INSERT or REPLACE INTO persons VALUES (?,?,?,?,?,?)''',partner2) # have to push parents to database
 			connection.commit()
 			print("Done! You created the partner 1's (%s %s)'s information" %(p2_fname,p2_lname))
 		regno = getUnique("marriages","regno")
 		regdate = getDate()
 		regplace = "Test"
-		cursor.execute('''INSERT INTO marriages VALUES(?,?,?,?,?,?,?)''',(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname))
+		cursor.execute('''INSERT or REPLACE INTO marriages VALUES(?,?,?,?,?,?,?)''',(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname))
 		connection.commit()
 	else:
 		print("Alright!")
@@ -173,12 +186,12 @@ def main():
 	print(40*"=")
 	cursor.execute('''SELECT * from births''')
 	all = cursor.fetchall()
-	print(all)
+	#print(all)
 	print("Every marriage : ")
 	print(40*"=")
 	cursor.execute('''SELECT * from marriages''')
 	all = cursor.fetchall()
-	#print(all)
+	print(all)
 	print("Every registrations : ")
 	print(40*"=")
 	cursor.execute('''SELECT * from registrations''')
