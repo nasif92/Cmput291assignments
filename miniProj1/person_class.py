@@ -5,64 +5,45 @@ connection = None
 cursor = None
 
 # function for creating a person
-#persons(fname, lname, bdate, bplace, address, phone) 
+# persons(fname, lname, bdate, bplace, address, phone) 
 # creating a return with the info so that insertion of parameters are unnecessary
-def createPerson():
-	given = False
-	while not given:
-		fname = input("First name: ")
-		lname = input("Last name: ")
-		if fname is "" or lname is "":
-			print("Missing primary key information (First Name, Last Name)")
-		else:
-			given = True
+# important!!! phone and address not given here for the first operation
+def createPerson(fname, lname, child):
+	global connection, cursor
+	if fname == "" or lname == "":
+		given = False
+		while not given:
+			fname = input("First name: ")
+			lname = input("Last name: ")
+			if fname is "" or lname is "":
+				print("Missing primary key information (First Name, Last Name)")
+			else:
+				given = True
+	else:
+		print("Creating a person with the name: %s %s" %(fname,lname))
 	bdate = input("Birth date (yyyy/mm/dd): ") # bdate is for person
 	bplace = input("Birth place: ") # this is for person too
-	address = input("Address: ")
-	return fname, lname, bdate, bplace, address
-	
+	address = ""
+	phone = ""
+	if not child:
+		address = input("Enter address: ")
+		phone = input ("Enter phone: ")
+	return fname, lname, bdate, bplace, address, phone
 
+
+# function for checking if a person is existent or not in the Person class
+def getPerson(fname, lname):
+	global connection, cursor
+	isPresent = False
+	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? AND lname = ?''',(fname, lname))
+	personName = cursor.fetchall()
+	for person in personName:
+		if person[0] == fname and person[1] == lname:
+			isPresent = True
+	return isPresent
+
+# not functional here
 # this function takes all the input in for a new birth
-def getBirthInfo():
-	fname = input("First name: ")
-	lname = input("Last name: ")
-	gender = input("Gender (M/F): ")
-	f_fname = input ("Father's first name: ")
-	f_lname = input("Father's last name: ")
-	m_fname = input ("Mother's first name: ")
-	m_lname = input("Mother's last name: ")
-	# I am going to check here too ;)
-	cursor.execute('''SELECT fname,lname from persons WHERE fname = ? AND lname = ?''',(fname, lname))
-	pname = cursor.fetchall()
-	if pname == []:
-		person = createPerson()
-		cursor.execute('''INSERT or REPLACE INTO persons VALUES (?,?,?,?,?)''',person)
-		connection.commit()
-	cursor.execute('''SELECT fname,lname from persons WHERE fname = ? AND lname = ?''',(f_fname, f_lname))
-	p1name = cursor.fetchall()
-	print(p1name)
-	cursor.execute('''SELECT fname,lname from persons WHERE fname = ? AND lname = ?''',(m_fname, m_lname))
-	p2name = cursor.fetchall()
-	print(p2name)
-	# checking done
-
-	if pname == ("", ""):
-		print("%s  %s does not exist", fname, lname)
-	elif p1name == ("",""):
-		print("You are giving father's information of a person who doesn't exist/nPlease provide the father's necessary information")
-		father_info = createPerson()
-		cursor.execute('''INSERT or REPLACE INTO persons VALUES (?,?,?,?,?)''', father_info)
-		connection.commit()
-	elif p2name == ("", ""):
-		print("You are giving mother's information of a person who doesn't exist/nPlease provide the mother's necessary information")
-		mother_info = createPerson()
-		cursor.execute('''INSERT or REPLACE INTO persons VALUES (?,?,?,?,?)''', mother_info)
-		connection.commit()
-	else:
-		regdate = getDate()
-		regno = getUnique("births", "regno")
-		regplace = 'Test' # this is going to be the user's registration place
-		return regno, fname, lname, regdate, regplace, gender, f_fname, f_lname, m_fname, m_lname
 
 def connect(path):
     global connection, cursor
@@ -78,16 +59,14 @@ def getUnique(table, key):
 	global cursor, connection
 	# this is for checking if a key is already present
 	# probably not required
-	cursor.execute("SELECT %s from %s;" %(key,table))
-	all = cursor.fetchall()
-	
 	#main functionality
 	cursor.execute("SELECT %s FROM %s ORDER BY %s DESC limit 1;" %(key, table, key))
 	num = cursor.fetchone()	
 	for x in num:
-		return x+1
+		return int(x)+1
 
 #getting parents information like phone and address
+# don't think it's necessary anymore
 def getParentInfo(fname, lname):
 	global cursor, connection
 	data = (fname, lname,)
@@ -99,25 +78,10 @@ def getParentInfo(fname, lname):
 
 def getDate():
 	now = datetime.datetime.now()
-	date = now.strftime("%Y/%m/%d")
+	date = now.strftime("%Y-%m-%d")
 	return date
 
 def main():
 	global connection, cursor
-	connect("./mp1.db")
-	#sth = getUnique("births", "regno")
-	#print(sth, x)
-
-	#cursor.execute('''SELECT * from births''')
-	#all = cursor.fetchall()
-	#print(all)
-	#parent = getParentInfo("Nasif2","Hossain2")
-	cursor.execute('''INSERT or REPLACE INTO births VALUES (?,?,?,?,?,?,?,?,?,?)''', getBirthInfo())
-	connection.commit()
-	cursor.execute('''SELECT * from births''')
-	all = cursor.fetchall()
-	print("Congrats! test passed")
-
-	print(all)
-	
+	connect("./test.db")
 main()
