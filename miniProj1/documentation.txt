@@ -10,4 +10,4 @@ Program: jnrizvi
 
 yalmuhta: 2, 4, 5 (maybe)
 nhossain: 1(finished, 3(finished), 2(finished)
-jnrizvi: 6, 1 (officer), 2 (officer)
+jnrizvi: 6, Off1 (finished), Off2 (finished)

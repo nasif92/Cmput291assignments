@@ -155,23 +155,11 @@ def get_driver_abstract():
 def find_car_owner():
 	global cursor, connection
 	# user provides one or more of make, model, year, color, and plate.
-
-	# If there are 4 or more matches, you will show only the make, model, year, color, and the plate of the matching cars and let the user select one
 	
-	## i.e. more GENERAL
-	# make, model, year, color, plate
-	
-	# When there are less than 4 matches or when a car is selected from a list 
-	# shown earlier, for each match, the make, model, year, color, and the plate of 
-	# the matching car will be shown as well as the latest registration date, the expiry date, 
-	# and the name of the person listed in the latest registration record.
-	
-	## i.e. more PRECISE
-	# make, model, year, color, plate, regdate, expiry, fname, lname
-
+	# will concatenate at least one condition according to provided input
 	finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
 	   				from registrations r join vehicles v using(vin) 
-	   				where ''' # make='Porsche' and model='Boxter' and year='2017' and color='pink' and plate='CASSIE';	<--- Ideally
+	   				where ''' 
 	
 	success = False
 	while success == False:
@@ -242,11 +230,11 @@ def find_car_owner():
 				print()
 				choiceNum = int(input("Enter the number corresponding to a match for more details: "))
 				print()
-				for column in rows[choiceNum-1]:
+				for column in rows[choiceNum-1]: # show the make, model, year, color, plate, regdate, expiry, fname, lname
 					print(column, end=" ")
 				print()
 
-			elif count < 4: # OR when a car is selected from a list shown earlier, show the make, model, year, color, plate, regdate, expiry, fname, lname
+			elif count < 4: # show the make, model, year, color, plate, regdate, expiry, fname, lname
 				print("\nLess than 4 matches.\n")
 				num = 1
 				for match in rows:
