@@ -77,6 +77,8 @@ insert or replace into tickets values (853983, 191919191, 300, "Impaired driving
 insert or replace into tickets values (365540, 999999999, 300, "Street racing", "2019-10-26");
 insert or replace into tickets values (258800, 999999999, 200, "Drifting", "2019-10-29");
 
+insert or replace into tickets values (261095, 999666333, 250, "Hit and Run", "2019-10-30");
+
 -- users
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
 

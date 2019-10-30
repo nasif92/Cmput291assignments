@@ -3,6 +3,9 @@ import random
 import time
 import datetime
 
+import issue_ticket
+import find_car_owner
+
 connection = None
 cursor = None
 
@@ -26,10 +29,6 @@ def main():
 		# prompt = input("Press enter to continue, or q to close the program: ")
 		
 	
-
-	
-	
-
 
 def login_screen():
 	##### must counter SQL injection attacks and make the password non-visible at the time of typing! #####
@@ -117,14 +116,15 @@ def operation_choice(user_type):
 			print("Enter the number corresponding to the desired operation, ")
 			choice = input("Or enter l to logout: ")
 			if choice == "1":
-				complete = issue_ticket()
+				complete = issue_ticket.issue_ticket()
 			elif choice == "2":
-				complete = find_car_owner()
+				complete = find_car_owner.find_car_owner()
 			elif choice == "l":
 				print("\nYou have logged out.\n")
 				break
 
 	return True
+
 
 def get_driver_abstract():
 	global cursor, connection
@@ -150,157 +150,6 @@ def get_driver_abstract():
 	ticketCount = cursor.fetchall()[0][0]
 	print(ticketCount)
 	return True
-
-	
-def find_car_owner():
-	global cursor, connection
-	# user provides one or more of make, model, year, color, and plate.
-	
-	# will concatenate at least one condition according to provided input
-	finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
-	   				from registrations r join vehicles v using(vin) 
-	   				where ''' 
-	
-	success = False
-	while success == False:
-		make = input("make: ")
-		model = input("model: ")
-		year = input("year: ")
-		color = input("color: ")
-		plate = input("plate: ")
-
-		parameters = []
-		if make != "":
-			finalQuery += "make=? and "
-			parameters.append(make)
-			success = True
-		if model != "":
-			finalQuery += "model=? and "
-			parameters.append(model)
-			success = True
-		if year != "":
-			finalQuery += "year=? and "
-			parameters.append(year)
-			success = True
-		if color != "":
-			finalQuery += "color=? and "
-			parameters.append(color)
-			success = True
-		if plate != "":
-			finalQuery += "plate=? and "
-			parameters.append(plate)
-			success = True
-
-		if success == False:
-			print("\nPlease provide at least one of the fields.")
-			prompt = input("(Press Enter to try again, q to exit): ")
-			print()
-			if prompt == "q":
-				return False
-		else:
-			finalQuery = finalQuery[:-5]
-			finalQuery += ";"
-			# print(finalQuery)
-
-			cursor.execute(finalQuery, parameters)
-			rows = cursor.fetchall()
-			# print(rows)
-			count = 0
-			for match in rows:
-				count += 1
-
-			if count == 0:
-				success = False
-				print("\nYour query returned", count, "matches.")
-				refine = input("(Press Enter to search again, q to exit): ")
-				print()
-				if refine == "q":
-					return False
-
-			elif count >= 4: # show only the make, model, year, color, and the plate of the matching cars and let the user select one
-				print("\n4 or more matches.\n")
-				num = 1
-				for match in rows:
-					print(str(num)+".", end=" ")
-					for i in range(len(match)):
-						if i in [0, 1, 2, 3, 4]:	
-							print(match[i], end=" ")
-					print()
-					num += 1
-				print()
-				choiceNum = int(input("Enter the number corresponding to a match for more details: "))
-				print()
-				for column in rows[choiceNum-1]: # show the make, model, year, color, plate, regdate, expiry, fname, lname
-					print(column, end=" ")
-				print()
-
-			elif count < 4: # show the make, model, year, color, plate, regdate, expiry, fname, lname
-				print("\nLess than 4 matches.\n")
-				num = 1
-				for match in rows:
-					print(str(num)+".", end=" ")
-					for column in match:
-						print(column, end=" ")
-					print()
-					num += 1
-				print()
-
-
-	return True
-
-def issue_ticket():
-	global cursor, connection
-	
-	regno = int(input("Please provide a registration number to view information: "))
-	cursor.execute('''select fname, lname, make, model, year, color 
-					  from registrations join vehicles using (vin)
-					  where regno=?''', [regno])
-	rows = cursor.fetchall()
-	if not rows:
-		print("The provided registration number does not exist")
-		return False
-
-	info_for_regno = rows[0]
-	success = False
-	while success == False:
-		print("\nInformation for registration number:", regno)
-		print()
-		for column in info_for_regno:
-			print(column, end="  ")
-		print("\n")
-		print("Issue a ticket to registration number: "+ str(regno) + "?")
-		prompt = input("(Press Enter to ticket, q to exit): ")
-		if prompt == "q":
-			break
-
-		print("Please provide the following information:\n")
-		vdate = input("Violation date: ")
-
-		if vdate == "":
-			vdate = time.strftime("%Y-%m-%d")
-		
-		violation = input("Violation (text): ")
-
-		fine = input("Fine amount: ")
-		print()
-		
-		# generate a random tno, which might not be unique. An exception is used to handle this.
-		tno = random.sample(range(100000, 999999), 1)[0]
-
-		try:
-			cursor.execute('''insert into tickets values
-							   (?, ?, ?, ?, ?);''', (tno, regno, fine, violation, vdate))
-			connection.commit()
-			print("A ticket (tno: "+str(tno)+ ") has been issued to registration number " + str(regno) + ".")
-			success = True
-		except sqlite3.IntegrityError as nonUniqueTNO:
-			print("An error occured while generating a TNO. Please try again.")
-
-	return True
-	
-
-
-
 
 
 def register_a_birth():
