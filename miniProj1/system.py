@@ -32,6 +32,7 @@ def main():
 
 
 def login_screen():
+	##### must counter SQL injection attacks and make the password non-visible at the time of typing! #####
 	valid = False
 	utype = ""
 	while valid == False:
@@ -155,7 +156,7 @@ def find_car_owner():
 	global cursor, connection
 	# user provides one or more of make, model, year, color, and plate.
 
-	# If there are more than 4 matches, you will show only the make, model, year, color, and the plate of the matching cars and let the user select one
+	# If there are 4 or more matches, you will show only the make, model, year, color, and the plate of the matching cars and let the user select one
 	
 	## i.e. more GENERAL
 	# make, model, year, color, plate
@@ -171,50 +172,69 @@ def find_car_owner():
 	finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
 	   				from registrations r join vehicles v using(vin) 
 	   				where ''' # make='Porsche' and model='Boxter' and year='2017' and color='pink' and plate='CASSIE';	<--- Ideally
-	make = input("make: ")
-	model = input("model: ")
-	year = input("year: ")
-	color = input("color: ")
-	plate = input("plate: ")
 	
-	parameters = []
-	if make != "":
-		finalQuery += "make=? and "#, (Porsche)
-		# " and "
-		parameters.append(make)
-	if model != "":
-		finalQuery += "model=? and "
-		# " and "
-		parameters.append(model)
-	if year != "":
-		finalQuery += "year=? and "
-		# " and "
-		parameters.append(year)
-	if color != "":
-		finalQuery += "color=? and "
-		# " and "
-		parameters.append(color)
-	if plate != "":
-		finalQuery += "plate=? and "
-		# ";"
-		parameters.append(plate)
+	success = False
+	while success == False:
+		make = input("make: ")
+		model = input("model: ")
+		year = input("year: ")
+		color = input("color: ")
+		plate = input("plate: ")
 
-	finalQuery = finalQuery[:-5]
-	finalQuery += ";"
-	# print(finalQuery)
+		parameters = []
+		if make != "":
+			finalQuery += "make=? and "
+			parameters.append(make)
+			success = True
+		if model != "":
+			finalQuery += "model=? and "
+			parameters.append(model)
+			success = True
+		if year != "":
+			finalQuery += "year=? and "
+			parameters.append(year)
+			success = True
+		if color != "":
+			finalQuery += "color=? and "
+			parameters.append(color)
+			success = True
+		if plate != "":
+			finalQuery += "plate=? and "
+			parameters.append(plate)
+			success = True
 
-	cursor.execute(finalQuery, parameters)
-	rows = cursor.fetchall()
-	count = 0
-	for match in rows:
-		count += 1
+		if success == False:
+			print("\nPlease provide at least one of the fields.")
+			prompt = input("(Press Enter to try again, q to exit): ")
+			print()
+			if prompt == "q":
+				return False
+		else:
+			finalQuery = finalQuery[:-5]
+			finalQuery += ";"
+			# print(finalQuery)
 
-	if count > 4:
-		# print(make, model, year, color, plate)
-		pass
-	else:
-		# print(make, model, year, color, plate, regdate, expiry, fname, lname)
-		pass
+			cursor.execute(finalQuery, parameters)
+			rows = cursor.fetchall()
+			# print(rows)
+			count = 0
+			for match in rows:
+				count += 1
+
+			if count == 0:
+				success = False
+				print("\nYour query returned", count, "matches.")
+				refine = input("(Press Enter to search again, q to exit): ")
+				print()
+				if refine == "q":
+					return False
+
+			elif count >= 4:
+				# print(make, model, year, color, plate)
+				pass
+			elif count < 4:
+				# print(make, model, year, color, plate, regdate, expiry, fname, lname)
+				pass
 
 
 	return True
