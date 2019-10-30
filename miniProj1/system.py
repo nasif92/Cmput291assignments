@@ -229,12 +229,33 @@ def find_car_owner():
 				if refine == "q":
 					return False
 
-			elif count >= 4:
-				# print(make, model, year, color, plate)
-				pass
-			elif count < 4:
-				# print(make, model, year, color, plate, regdate, expiry, fname, lname)
-				pass
+			elif count >= 4: # show only the make, model, year, color, and the plate of the matching cars and let the user select one
+				print("\n4 or more matches.\n")
+				num = 1
+				for match in rows:
+					print(str(num)+".", end=" ")
+					for i in range(len(match)):
+						if i in [0, 1, 2, 3, 4]:	
+							print(match[i], end=" ")
+					print()
+					num += 1
+				print()
+				choiceNum = int(input("Enter the number corresponding to a match for more details: "))
+				print()
+				for column in rows[choiceNum-1]:
+					print(column, end=" ")
+				print()
+
+			elif count < 4: # OR when a car is selected from a list shown earlier, show the make, model, year, color, plate, regdate, expiry, fname, lname
+				print("\nLess than 4 matches.\n")
+				num = 1
+				for match in rows:
+					print(str(num)+".", end=" ")
+					for column in match:
+						print(column, end=" ")
+					print()
+					num += 1
+				print()
 
 
 	return True

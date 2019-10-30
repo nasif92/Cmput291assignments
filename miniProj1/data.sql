@@ -35,22 +35,40 @@ insert or replace into persons values ("Sonya", "Blade", "1969-04-09", "San Fran
 
 insert or replace into persons values ("Cassandra", "Cage", "1993-01-01", "Los Angeles, California", "747 Meadowlark Road", "111-222-3333");
 
+
+insert or replace into persons values ("Jackson", "Briggs", "1959-05-29", "Denver, Colorado", "344 Fredrickson Avenue", "239-445-7355");
+insert or replace into persons values ("Vera", "Briggs", "1964-01-10", "Miami, Florida", "344 Fredrickson Avenue", "849-148-8383");
+
+insert or replace into persons values ("Jacqui", "Briggs", "1991-09-30", "Denver, Colorado", "819 Pleasant Park", "619-619-6191");
+
 -- births
-insert or replace into births values (888888888, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
+insert or replace into births values (88888888, "Richard", "Wilson", "1983-04-22", "Seattle Washington", "m", "Dwight", "Wilson", "Andrea", "Wilson");
 
 insert or replace into births values (76543219, "Stewart", "Smith", "1989-07-14", "Brampton Ontario", "m", "Fred", "Smith", "Carla", "Smith");
 
 insert or replace into births values (79685715, "Cassandra", "Cage", "1993-01-01", "Los Angeles, California", "f", "Johnny", "Cage", "Sonya", "Blade");
+
+insert or replace into births values (12345678, "Jacqui", "Briggs", "1991-09-30", "Miami, Florida", "f", "Jackson", "Briggs", "Vera", "Briggs");
 
 -- vehicles
 insert or replace into vehicles values (7777777, "Porsche", "Boxter", 2017, "pink");
 insert or replace into vehicles values (1717171, "Audi", "R8", 2019, "purple");
 insert or replace into vehicles values (7700077, "Lamborghini", "Aventador", 2018, "pink");
 
+insert or replace into vehicles values (1234567, "Toyota", "Prius", 2018, "white");
+insert or replace into vehicles values (7654321, "Honda", "Accord", 2018, "black");
+
+insert or replace into vehicles values (5489721, "Dodge", "Dart", 2018, "Orange");
+
 -- registrations
 insert or replace into registrations values (999999999, "2017-06-19", "2020-06-19", "CASSIE", 7777777, "Cassandra", "Cage");
 insert or replace into registrations values (191919191, "2019-03-07", "2023-03-07", "LUVU2", 1717171, "Cassandra", "Cage");
 insert or replace into registrations values (990000099, "2018-07-05", "2021-07-05", "CATCHME", 7700077, "Cassandra", "Cage");
+
+insert or replace into registrations values (333666999, "2018-03-12", "2021-03-12", "EATTHIS", 1234567, "Jacqui", "Briggs");
+insert or replace into registrations values (999666333, "2018-10-29", "2021-10-29", "IAMCOOL", 7654321, "Jacqui", "Briggs");
+
+insert or replace into registrations values (473682223, "2018-01-10", "2021-01-10", "AMERICA", 5489721, "Jackson", "Briggs");
 
 -- tickets
 insert or replace into tickets values (395121, 999999999, 150, "Speeding", "2019-08-22");
@@ -63,3 +81,9 @@ insert or replace into tickets values (258800, 999999999, 200, "Drifting", "2019
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
 
 insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");
+
+
+
+
+
+
