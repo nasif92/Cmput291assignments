@@ -99,7 +99,7 @@ insert or replace into demeritNotices values ("2019-07-12","Jacqui", "Briggs", 5
 
 -- payments(tno, pdate, amount)
 insert or replace into payments values (365540, "2019-10-31", 300);
-
+insert or replace into payments values(164186, "2019-10-31", 0);
 
 -- users
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
