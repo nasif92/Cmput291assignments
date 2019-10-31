@@ -15,7 +15,7 @@ def find_car_owner():
 	finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
 	   				from registrations r join vehicles v using(vin) 
 	   				where ''' 
-	
+	print()
 	success = False
 	while success == False:
 		make = input("make: ")
@@ -54,7 +54,7 @@ def find_car_owner():
 				return False
 		else:
 			finalQuery = finalQuery[:-5]
-			finalQuery += ";"
+			# finalQuery += ";"
 			# print(finalQuery)
 
 			cursor.execute(finalQuery, parameters)
@@ -87,7 +87,7 @@ def find_car_owner():
 				print()
 				for column in rows[choiceNum-1]: # show the make, model, year, color, plate, regdate, expiry, fname, lname
 					print(column, end=" ")
-				print()
+				print("\n")
 
 			elif count < 4: # show the make, model, year, color, plate, regdate, expiry, fname, lname
 				print("\nLess than 4 matches.\n")

@@ -5,6 +5,7 @@ import datetime
 
 import issue_ticket
 import find_car_owner
+import Billofsale
 
 connection = None
 cursor = None
@@ -64,8 +65,7 @@ def operation_choice(user_type):
 	print()
 
 	if user_type == "a":
-		print("Operations for Registry Agents:")
-		print()
+		
 		options_list = [
 			"Register a birth", 
 			"Register a marriage", 
@@ -77,6 +77,8 @@ def operation_choice(user_type):
 		
 		complete = False
 		while not complete:
+			print("Operations for Registry Agents:")
+			print()
 			for i in range(len(options_list)):
 				print(str(i+1)+". "+ options_list[i])
 			print()
@@ -84,24 +86,23 @@ def operation_choice(user_type):
 			print("Enter the number corresponding to the desired operation, ")
 			choice = input("Or enter l to logout: ")
 			if choice == "1":
-				complete = register_a_birth()
+				register_a_birth()
 			elif choice == "2":
 				pass
 			elif choice == "3":
 				pass
 			elif choice == "4":
-				pass
+				Billofsale.bill_of_sale()
 			elif choice == "5":
 				pass
 			elif choice == "6":
-				complete = get_driver_abstract()
+				get_driver_abstract()
 			elif choice == "l":
 				print("\nYou have logged out.\n")
-				break
+				complete = True
 
 	elif user_type == "o":
-		print("Operations for Traffic Officers:")
-		print()
+		
 		options_list = [
 			"Issue a ticket",
 			"Find a car owner"
@@ -109,6 +110,8 @@ def operation_choice(user_type):
 		
 		complete = False
 		while not complete:
+			print("Operations for Traffic Officers:")
+			print()
 			for i in range(len(options_list)):
 				print(str(i+1)+". "+ options_list[i])
 			print()
@@ -116,12 +119,13 @@ def operation_choice(user_type):
 			print("Enter the number corresponding to the desired operation, ")
 			choice = input("Or enter l to logout: ")
 			if choice == "1":
-				complete = issue_ticket.issue_ticket()
+				issue_ticket.issue_ticket()
 			elif choice == "2":
-				complete = find_car_owner.find_car_owner()
+				find_car_owner.find_car_owner()
 			elif choice == "l":
 				print("\nYou have logged out.\n")
-				break
+				complete = True
+				# break
 
 	return True
 
