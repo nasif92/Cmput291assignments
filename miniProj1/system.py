@@ -7,6 +7,7 @@ import issue_ticket
 import find_car_owner
 import Billofsale
 import process_payment
+import register_marriage
 
 connection = None
 cursor = None
@@ -91,7 +92,7 @@ def operation_choice(user_type):
 			if choice == "1":
 				register_a_birth()
 			elif choice == "2":
-				pass
+				register_marriage.register_marriage()
 			elif choice == "3":
 				pass
 			elif choice == "4":
