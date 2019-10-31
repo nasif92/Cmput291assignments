@@ -22,7 +22,7 @@ insert or replace into persons values ("Dwight", "Wilson", "1954-08-24", "Edison
 insert or replace into persons values ("Andrea", "Wilson", "1956-01-12", "Manhattan, New York", "222 Aspen Avenue", "987-432-7654");
 
 insert or replace into persons values ("Richard", "Wilson", "1983-04-22", "Seattle, Washington", "888 Cedar Street", "123-456-7899");
-
+                                         
 
 insert or replace into persons values ("Fred", "Smith", "1960-08-04", "Calgary, Alberta", "321 Fairway Drive", "474-131-2233");
 insert or replace into persons values ("Carla", "Smith", "1962-03-21", "Edmonton, Alberta", "321 Fairway Drive", "834-454-9999");
@@ -64,6 +64,7 @@ insert or replace into vehicles values (5489721, "Dodge", "Dart", 2018, "Orange"
 insert or replace into registrations values (999999999, "2017-06-19", "2020-06-19", "CASSIE", 7777777, "Cassandra", "Cage");
 insert or replace into registrations values (191919191, "2019-03-07", "2023-03-07", "LUVU2", 1717171, "Cassandra", "Cage");
 insert or replace into registrations values (990000099, "2018-07-05", "2021-07-05", "CATCHME", 7700077, "Cassandra", "Cage");
+insert or replace into registrations values (123231099, "2019-05-05", "2021-07-05", "VOTEME", 7123127, "Sonya", "Blade");
 
 insert or replace into registrations values (333666999, "2018-03-12", "2021-03-12", "EATTHIS", 1234567, "Jacqui", "Briggs");
 insert or replace into registrations values (999666333, "2018-10-29", "2021-10-29", "IAMCOOL", 7654321, "Jacqui", "Briggs");
@@ -83,6 +84,23 @@ insert or replace into tickets values (261095, 999666333, 250, "Hit and Run", "2
 insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
 
 insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");
+
+-- demeritNotices(ddate, fname, lname, points, desc)
+
+insert or replace into demeritNotices values ("2018-05-30","Cassandra", "Cage", 2, "Speeding");
+insert or replace into demeritNotices values ("2019-05-30","Cassandra", "Cage", 5, "Speeding");
+insert or replace into demeritNotices values ("2018-01-30","Cassandra", "Cage", 5, "Speeding");
+insert or replace into demeritNotices values ("2017-11-30","Cassandra", "Cage", 5, "Speeding");
+insert or replace into demeritNotices values ("2019-10-30","Cassandra", "Cage", 5, "Repair");
+
+insert or replace into demeritNotices values ("2018-05-30","Cassandra", "Cage", 10, "Dead");
+insert or replace into demeritNotices values ("2018-05-15","Sonya", "Blade", 2, "Speeding");
+
+insert or replace into demeritNotices values ("2013-07-12","Richard", "Wilson", 5, "Hit and Run");
+insert or replace into demeritNotices values ("2018-05-30","Jacqui", "Briggs", 2, "Speeding");
+
+insert or replace into demeritNotices values ("2019-07-12","Richard", "Wilson", 5, "Hit and Run");
+insert or replace into demeritNotices values ("2019-07-12","Jacqui", "Briggs", 5, "Hit and Run");
 
 
 
