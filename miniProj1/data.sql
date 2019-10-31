@@ -80,13 +80,7 @@ insert or replace into tickets values (258800, 999999999, 200, "Drifting", "2019
 
 insert or replace into tickets values (261095, 999666333, 250, "Hit and Run", "2019-10-30");
 
--- users
-insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
-
-insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");
-
 -- demeritNotices(ddate, fname, lname, points, desc)
-
 insert or replace into demeritNotices values ("2018-05-30","Cassandra", "Cage", 2, "Speeding");
 insert or replace into demeritNotices values ("2019-05-30","Cassandra", "Cage", 5, "Speeding");
 insert or replace into demeritNotices values ("2018-01-30","Cassandra", "Cage", 5, "Speeding");
@@ -103,6 +97,14 @@ insert or replace into demeritNotices values ("2019-07-12","Richard", "Wilson", 
 insert or replace into demeritNotices values ("2019-07-12","Jacqui", "Briggs", 5, "Hit and Run");
 
 
+-- payments(tno, pdate, amount)
+insert or replace into payments values (365540, "2019-10-31", 300);
+
+
+-- users
+insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
+
+insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");
 
 
 
