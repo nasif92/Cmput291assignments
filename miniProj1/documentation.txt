@@ -11,3 +11,20 @@ Program: jnrizvi
 yalmuhta: 2, 4, 5 (maybe)
 nhossain: 1(finished, 3(finished), 2(finished), Going to work on date formatting and string format checkers, calling the functions on system and help on the sql injection.
 jnrizvi: 6, Off1 (finished), Off2 (finished)
+
+
+Member Roles:
+
+jnrizvi:
+-- Questions 7, 8
+-- Database administrator
+-- Program Design and Integration of Parts
+
+nhossain:
+-- Qustions 1, 2, 3
+-- Testing and Error Handling
+-- SQL Injection
+
+yalmuhta:
+-- Questions 2, 4, 5
+-- Documentation
