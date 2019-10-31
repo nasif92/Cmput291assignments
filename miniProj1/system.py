@@ -6,6 +6,7 @@ import datetime
 import issue_ticket
 import find_car_owner
 import Billofsale
+import process_payment
 
 connection = None
 cursor = None
@@ -16,6 +17,8 @@ def main():
 	cursor = connection.cursor()
 	cursor.execute("PRAGMA foreign_keys=ON;")
 	connection.commit()
+
+	##### MUST INCLUDE PROMPT TO ENTER DATABASE PATH!!!! #####
 
 	# first screen
 	print("\nWelcome to the program.")
@@ -94,7 +97,7 @@ def operation_choice(user_type):
 			elif choice == "4":
 				Billofsale.bill_of_sale()
 			elif choice == "5":
-				pass
+				process_payment.process_payment()
 			elif choice == "6":
 				get_driver_abstract()
 			elif choice == "l":
