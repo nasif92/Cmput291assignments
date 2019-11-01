@@ -2,22 +2,8 @@ import sqlite3
 import random, datetime
 from person_class import createPerson, getPerson, getDate, getUnique
 
-
-# connection = None
-# cursor = None
-
-# def connect(path):
-#     global connection, cursor
-
-#     connection = sqlite3.connect(path)
-#     cursor = connection.cursor()
-#     cursor.execute(' PRAGMA foreign_keys=ON; ')
-#     connection.commit()
-#     return
-
 # registrations(regno, regdate, expiry, plate, vin, fname, lname)
 def renew_registration():
-	# global cursor, connection
 
 	connection = sqlite3.connect("./mp1.db")
 	cursor = connection.cursor()
@@ -45,19 +31,9 @@ def renew_registration():
 				newDate = str(int(currentDate[0:4]) + 1) + datetime.datetime.now().strftime("-%m-%d")
 			else:
 				newDate = str(int(expiry[0][0:4]) + 1) + expiry[0][4:]
-			cursor.execute('''UPDATE registrations set expiry = ? WHERE regno = ?''',(newDate,regno))
+			cursor.execute('''UPDATE registrations set regdate=?, expiry = ? WHERE regno = ?''',(currentDate, newDate, regno))
 			connection.commit()
 		except:
 			print("Given registration number %s is not present in database" %regno)
 	else:
 		print("Alright!")
-
-# def main():
-# 	global connection, cursor
-# 	connect("./test.db")
-	# first screen
-	#renew_registration(999999999)
-	#cursor.execute('''SELECT expiry from registrations WHERE regno = 999999999''')
-	#all = cursor.fetchall()
-	#print(all)
-# main() 
