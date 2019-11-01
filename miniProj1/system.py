@@ -12,6 +12,8 @@ import renew_registration
 import register_birth
 import get_driver_abstract
 
+import getpass
+
 connection = None
 cursor = None
 city = ""
@@ -49,7 +51,7 @@ def login_screen():
 		print("\nEnter login details, or q to close the program:")
 		uid = input("User ID: ")
 		uid = uid.lower()
-		pwd = input("Password: ")
+		pwd = getpass.getpass(prompt="Password: ")
 		print()
 
 		if uid == "q" or pwd == "q":
