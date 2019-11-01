@@ -9,7 +9,7 @@ Program: jnrizvi
 
 
 yalmuhta: 2, 4, 5 (maybe)
-nhossain: 1(finished, 3(finished), 2(finished), 5(working on it rn). Going to work on date formatting and string format checkers, calling the functions on system and help on the sql injection.
+nhossain: 1(finished, 3(finished), 2(finished), 5(working on it rn). Going to work on date formatting and string format checkers, calling the functions on system and help on the sql injection. Not working on sql injection currently. Finished q6 (piece of gold (garbage))
 jnrizvi: 6, Off1 (finished), Off2 (finished)
 
 
@@ -21,7 +21,7 @@ jnrizvi:
 -- Program Design and Integration of Parts
 
 nhossain:
--- Qustions 1, 3
+-- Qustions 1, 2, 3, 6
 -- Testing and Error Handling
 -- SQL Injection
 
