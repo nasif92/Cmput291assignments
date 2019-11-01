@@ -4,22 +4,26 @@ from person_class import createPerson, getPerson, getDate, getUnique
 connection = None
 cursor = None
 
-def connect(path):
-    global connection, cursor
+# def connect(path):
+#     global connection, cursor
 
-    connection = sqlite3.connect(path)
-    cursor = connection.cursor()
-    cursor.execute(' PRAGMA foreign_keys=ON; ')
-    connection.commit()
-    return
+#     connection = sqlite3.connect(path)
+#     cursor = connection.cursor()
+#     cursor.execute(' PRAGMA foreign_keys=ON; ')
+#     connection.commit()
+#     return
 
 # registrations(regno, regdate, expiry, plate, vin, fname, lname)
 # tickets(tno,regno,fine,violation,vdate)
 # demeritNotices(ddate, fname, lname, points, desc)
 
 def get_driver_abstract():
-	global cursor, connection
-	
+	# global cursor, connection
+	connection = sqlite3.connect('./mp1.db')
+	cursor = connection.cursor()
+	cursor.execute(' PRAGMA foreign_keys=ON; ')
+	connection.commit()
+
 	given =False
 	while not given:
 		fname = input("Enter fname: ")
@@ -95,10 +99,10 @@ def get_driver_abstract():
 						i+= 1
 	print("Exiting!")
 
-def main():
-	global connection, cursor
+# def main():
+# 	global connection, cursor
 
-	connect("./test.db")
-	get_driver_abstract()
+# 	connect("./test.db")
+# 	get_driver_abstract()
 	
-main()
+# main()

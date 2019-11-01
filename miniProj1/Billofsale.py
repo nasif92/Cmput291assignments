@@ -30,13 +30,13 @@ def bill_of_sale():
 	fname = match[0][1]
 	lname = match[0][2]
 
-	selected_fname = input("Provide the first name of the owner: ")
+	selected_fname = input("Provide the first name of the current owner: ")
 
 	if selected_fname != fname:
 		print("You entered the incorrect first name of the owner, exiting function.")
 		return False
 
-	selected_lname = input("Provide the last name of the owner: ")
+	selected_lname = input("Provide the last name of the current owner: ")
 
 	if selected_lname != lname:
 		print("You entered the incorrect last name of the owner, exiting function.")

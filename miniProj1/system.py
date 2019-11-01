@@ -10,6 +10,7 @@ import process_payment
 import register_marriage
 import renew_registration
 import register_birth
+import get_driver_abstract
 
 connection = None
 cursor = None
@@ -107,7 +108,7 @@ def operation_choice(user_type):
 			elif choice == "5":
 				process_payment.process_payment()
 			elif choice == "6":
-				pass
+				get_driver_abstract.get_driver_abstract()
 			elif choice == "l":
 				print("\nYou have logged out.\n")
 				complete = True
@@ -140,34 +141,5 @@ def operation_choice(user_type):
 
 	return True
 
-
-def get_driver_abstract():
-	global cursor, connection
-	fname = input("Enter a first name: ")
-	lname = input("Enter a last name: ")
-	# Driver Abstract: which includes the number of tickets, the number of demerit notices,
-	# the total number of demerit points received both within the past two years and within the lifetime.
-
-	
-	cursor.execute("select regno from registrations where fname=? and lname=?", (fname, lname))
-	rows = cursor.fetchall()
-	if not rows:
-		print("\nThe first and last name entered did not match any registration number.\n")
-		return False
-
-	print(rows)
-	getCount = '''
-				select count(t.tno)
-				from registrations r join tickets t using(regno)
-				where r.regno=t.regno and r.fname=? and r.lname=?
-			   '''
-	cursor.execute(getCount, [fname, lname])
-	ticketCount = cursor.fetchall()[0][0]
-	print(ticketCount)
-	return True
-
-
-def register_a_birth():
-	return True
 
 main()
