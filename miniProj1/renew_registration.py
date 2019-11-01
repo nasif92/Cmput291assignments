@@ -36,4 +36,4 @@ def renew_registration():
 		except:
 			print("Given registration number %s is not present in database" %regno)
 	else:
-		print("Alright!")
+		print("\nExiting prompt...\n")

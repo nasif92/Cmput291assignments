@@ -50,6 +50,11 @@ insert or replace into births values (79685715, "Cassandra", "Cage", "1993-01-01
 
 insert or replace into births values (12345678, "Jacqui", "Briggs", "1991-09-30", "Miami, Florida", "f", "Jackson", "Briggs", "Vera", "Briggs");
 
+
+-- marriages(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname)
+insert or replace into marriages values (2, "2019-10-31", "Seattle, Washington", "Johnny", "Cage", "Sonya", "Blade");
+
+
 -- vehicles
 insert or replace into vehicles values (7777777, "Porsche", "Boxter", 2005, "pink");
 insert or replace into vehicles values (1717171, "Audi", "R8", 2019, "purple");
@@ -102,9 +107,9 @@ insert or replace into payments values (365540, "2019-10-31", 300);
 insert or replace into payments values(164186, "2019-10-31", 0);
 
 -- users
-insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle");
+insert or replace into users values ("rwilson", "qwerty", "a", "Richard", "Wilson", "Seattle, Washington");
 
-insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton");
+insert or replace into users values ("ssmith1", "asdfgh", "o", "Stewart", "Smith", "Brampton, Ontario");
 
 
 

@@ -12,6 +12,7 @@ import renew_registration
 
 connection = None
 cursor = None
+city = ""
 
 def main():
 	global connection, cursor
@@ -38,6 +39,8 @@ def main():
 
 def login_screen():
 	##### must counter SQL injection attacks and make the password non-visible at the time of typing! #####
+	global city
+	
 	valid = False
 	utype = ""
 	while valid == False:
@@ -51,13 +54,15 @@ def login_screen():
 			utype = "q"
 			break
 		
-		cursor.execute("select utype from users where uid=? and pwd=?", (uid, pwd))
+		cursor.execute("select utype, city from users where uid=? and pwd=?", (uid, pwd))
 		rows = cursor.fetchall()
 		if not rows:
 			print("The User Id and Password combination did not return any results.")
 		else:
 			valid = True
 			utype = rows[0][0]
+			city = rows[0][1]
+			# print(city)
 
 	return utype
 
@@ -93,7 +98,7 @@ def operation_choice(user_type):
 			if choice == "1":
 				register_a_birth()
 			elif choice == "2":
-				register_marriage.register_marriage()
+				register_marriage.register_marriage(city)
 			elif choice == "3":
 				renew_registration.renew_registration()
 			elif choice == "4":
