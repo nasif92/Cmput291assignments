@@ -6,16 +6,6 @@ from person_class import createPerson, getPerson, getDate, getUnique
 connection = None
 cursor = None
 
-# def connect(path):
-#     global connection, cursor
-
-#     connection = sqlite3.connect(path)
-#     cursor = connection.cursor()
-#     cursor.execute(' PRAGMA foreign_keys=ON; ')
-#     connection.commit()
-#     return
-
-
 def getBirthInfo(regplace):
 	global connection, cursor
 	given = False
@@ -77,11 +67,7 @@ def getBirthInfo(regplace):
 
 	return regno, fname, lname, regdate, regplace, gender, f_fname.capitalize(), f_lname.capitalize(), m_fname.capitalize(), m_lname.capitalize()
 
-#births(regno, fname, lname, regdate, regplace, gender, f_fname, f_lname, m_fname, m_lname)
-#persons(fname, lname, bdate, bplace, address, phone) 
-#regno is unique
-#regplace is city of user
-#regdate is today's date
+
 def register_a_birth(regplace):
 	global cursor, connection
 
@@ -102,18 +88,3 @@ def register_a_birth(regplace):
 		print("\nBirth successfully registered.\n")
 	else:
 		print("\nExiting prompt...\n")
-
-# register a marriage
-# marriages(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname)
-
-
-# def main():
-# 	global connection, cursor
-# 	connect("./test.db")
-	# first screen
-	#print("Welcome to the program.")
-	#register_a_birth("Seattle")
-	#cursor.execute('''SELECT fname, lname from births''')
-	#all = cursor.fetchall()
-	#print(all)
-# main() 

@@ -69,7 +69,7 @@ insert or replace into vehicles values (5489721, "Dodge", "Dart", 2018, "Orange"
 insert or replace into registrations values (999999999, "2005-06-19", "2008-06-19", "CASSIE", 7777777, "Cassandra", "Cage");
 insert or replace into registrations values (191919191, "2019-03-07", "2023-03-07", "LUVU2", 1717171, "Cassandra", "Cage");
 insert or replace into registrations values (990000099, "2018-07-05", "2021-07-05", "CATCHME", 7700077, "Cassandra", "Cage");
-insert or replace into registrations values (123231099, "2019-05-05", "2021-07-05", "VOTEME", 7123127, "Sonya", "Blade");
+-- insert or replace into registrations values (123231099, "2019-05-05", "2021-07-05", "VOTEME", 7123127, "Sonya", "Blade");
 
 insert or replace into registrations values (333666999, "2018-03-12", "2021-03-12", "EATTHIS", 1234567, "Jacqui", "Briggs");
 insert or replace into registrations values (999666333, "2018-10-29", "2021-10-29", "IAMCOOL", 7654321, "Jacqui", "Briggs");

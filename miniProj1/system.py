@@ -107,7 +107,7 @@ def operation_choice(user_type):
 			elif choice == "5":
 				process_payment.process_payment()
 			elif choice == "6":
-				get_driver_abstract()
+				pass
 			elif choice == "l":
 				print("\nYou have logged out.\n")
 				complete = True
