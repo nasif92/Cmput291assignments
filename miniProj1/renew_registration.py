@@ -3,21 +3,33 @@ import random, datetime
 from person_class import createPerson, getPerson, getDate, getUnique
 
 
-connection = None
-cursor = None
+# connection = None
+# cursor = None
 
-def connect(path):
-    global connection, cursor
+# def connect(path):
+#     global connection, cursor
 
-    connection = sqlite3.connect(path)
-    cursor = connection.cursor()
-    cursor.execute(' PRAGMA foreign_keys=ON; ')
-    connection.commit()
-    return
+#     connection = sqlite3.connect(path)
+#     cursor = connection.cursor()
+#     cursor.execute(' PRAGMA foreign_keys=ON; ')
+#     connection.commit()
+#     return
 
 # registrations(regno, regdate, expiry, plate, vin, fname, lname)
-def renew_registration(regno):
-	global cursor, connection
+def renew_registration():
+	# global cursor, connection
+
+	connection = sqlite3.connect("./mp1.db")
+	cursor = connection.cursor()
+	cursor.execute("PRAGMA foreign_keys=ON;")
+	connection.commit()
+
+	regno = int(input("Enter a registration number to renew: "))
+	rows = cursor.execute("select regno from registrations where regno=?", [regno])
+	if not rows:
+		print("That registration number does not exist.")
+		return False
+
 	prompt = input ("Renew registration for regno: %s? (y/n) " %regno)
 	if prompt is 'y' or prompt is 'Y':
 		try:
@@ -40,12 +52,12 @@ def renew_registration(regno):
 	else:
 		print("Alright!")
 
-def main():
-	global connection, cursor
-	connect("./test.db")
+# def main():
+# 	global connection, cursor
+# 	connect("./test.db")
 	# first screen
 	#renew_registration(999999999)
 	#cursor.execute('''SELECT expiry from registrations WHERE regno = 999999999''')
 	#all = cursor.fetchall()
 	#print(all)
-main() 
+# main() 

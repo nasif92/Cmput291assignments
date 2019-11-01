@@ -8,6 +8,7 @@ import find_car_owner
 import Billofsale
 import process_payment
 import register_marriage
+import renew_registration
 
 connection = None
 cursor = None
@@ -94,7 +95,7 @@ def operation_choice(user_type):
 			elif choice == "2":
 				register_marriage.register_marriage()
 			elif choice == "3":
-				pass
+				renew_registration.renew_registration()
 			elif choice == "4":
 				Billofsale.bill_of_sale()
 			elif choice == "5":
