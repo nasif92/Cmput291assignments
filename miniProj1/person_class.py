@@ -35,10 +35,10 @@ def createPerson(fname, lname, child):
 def getPerson(fname, lname):
 	global connection, cursor
 	isPresent = False
-	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? AND lname = ?''',(fname, lname))
+	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? COLLATE NOCASE AND lname = ? COLLATE NOCASE''',(fname, lname,))
 	personName = cursor.fetchall()
 	for person in personName:
-		if person[0] == fname and person[1] == lname:
+		if person[0].capitalize() == fname.capitalize() and person[1].capitalize() == lname.capitalize():
 			isPresent = True
 	return isPresent
 
@@ -62,9 +62,11 @@ def getUnique(table, key):
 	#main functionality
 	cursor.execute("SELECT %s FROM %s ORDER BY %s DESC limit 1;" %(key, table, key))
 	num = cursor.fetchone()	
-	for x in num:
-		return int(x)+1
-
+	if num != None:
+		for x in num:
+			return int(x)+1
+	else:
+		return 1
 #getting parents information like phone and address
 # don't think it's necessary anymore
 def getParentInfo(fname, lname):
@@ -72,7 +74,7 @@ def getParentInfo(fname, lname):
 	data = (fname, lname,)
 	cursor.execute('''SELECT persons.address, persons.phone from persons, births
 					WHERE births.m_fname = persons.fname AND births.m_lname = persons.lname
-					AND births.fname = ? AND births.lname = ? ''' ,data)
+					AND births.fname = ? COLLATE NOCASE AND births.lname = ? COLLATE NOCASE''' ,data)
 	parent = cursor.fetchone()
 	return parent
 
