@@ -6,14 +6,14 @@ from person_class import createPerson, getPerson, getDate, getUnique
 connection = None
 cursor = None
 
-def connect(path):
-    global connection, cursor
+# def connect(path):
+#     global connection, cursor
 
-    connection = sqlite3.connect(path)
-    cursor = connection.cursor()
-    cursor.execute(' PRAGMA foreign_keys=ON; ')
-    connection.commit()
-    return
+#     connection = sqlite3.connect(path)
+#     cursor = connection.cursor()
+#     cursor.execute(' PRAGMA foreign_keys=ON; ')
+#     connection.commit()
+#     return
 
 
 def getBirthInfo(regplace):
@@ -26,9 +26,9 @@ def getBirthInfo(regplace):
 		if fname != "" and lname != "":
 			given = True
 		else:
-			print("You have to input child's both first name and last name")
-	gender = input("Gender (M/F): ")
-	bdate = input("Birth date (yyyy/mm/dd): ") # bdate is for person
+			print("\nPlease input child's first name and last name.\n")
+	gender = input("Gender (m/f): ")
+	bdate = input("Birth date (yyyy-mm-dd): ") # bdate is for person
 	bplace = input("Birth place: ") # this is for person too
 	given = False
 	while not given:	
@@ -37,11 +37,11 @@ def getBirthInfo(regplace):
 		if f_fname != "" and f_lname != "":
 			given = True
 		else:
-			print("You have to input father's both first name and last name")
+			print("\nPlease input father's first name and last name\n")
 	if (getPerson(f_fname, f_lname)): # if father is not a person, get the information about father
-		print("Father's information is present in database")
+		print("\nFather's information is present in database\n")
 	else:
-		print("Father's information not in database. \nPlease provide the required information for creating a new person")
+		print("\nFather's information not in database. \nPlease provide the required information for creating a new person")
 		father = createPerson(f_fname.capitalize(),f_lname.capitalize(),False)
 		cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',father) # have to push parents to database
 		print("Done! You created the father's information")
@@ -85,33 +85,35 @@ def getBirthInfo(regplace):
 def register_a_birth(regplace):
 	global cursor, connection
 
+	connection = sqlite3.connect("./mp1.db")
+	cursor = connection.cursor()
+	cursor.execute("PRAGMA foreign_keys=ON;")
+	connection.commit()
+
 	prompt = input ("Register for birth? (y/n)")
 	# have to find a unique registration number too
 	if prompt == 'Y' or prompt == 'y':
-		try:
-			print("Putting into births database ...")
-			# register that new person into registry
-			cursor.execute('''INSERT or replace INTO births
-			VALUES (?,?,?,?,?,?,?,?,?,?);''',getBirthInfo(regplace))
-			# create a person				
-			connection.commit()
-			print("Well done! You have registered a new birth")
-		except:
-			print("There is an error in the implementation. Sorry :(")
+		print("Putting into births database ...")
+		# register that new person into registry
+		cursor.execute('''INSERT or replace INTO births
+		VALUES (?,?,?,?,?,?,?,?,?,?);''', getBirthInfo(regplace))
+		# create a person				
+		connection.commit()
+		print("\nBirth successfully registered.\n")
 	else:
-		print("Alright!")
+		print("\nExiting prompt...\n")
 
 # register a marriage
 # marriages(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname)
 
 
-def main():
-	global connection, cursor
-	connect("./test.db")
+# def main():
+# 	global connection, cursor
+# 	connect("./test.db")
 	# first screen
 	#print("Welcome to the program.")
 	#register_a_birth("Seattle")
 	#cursor.execute('''SELECT fname, lname from births''')
 	#all = cursor.fetchall()
 	#print(all)
-main() 
+# main() 

@@ -9,6 +9,7 @@ import Billofsale
 import process_payment
 import register_marriage
 import renew_registration
+import register_birth
 
 connection = None
 cursor = None
@@ -40,7 +41,7 @@ def main():
 def login_screen():
 	##### must counter SQL injection attacks and make the password non-visible at the time of typing! #####
 	global city
-	
+
 	valid = False
 	utype = ""
 	while valid == False:
@@ -96,7 +97,7 @@ def operation_choice(user_type):
 			print("Enter the number corresponding to the desired operation, ")
 			choice = input("Or enter l to logout: ")
 			if choice == "1":
-				register_a_birth()
+				register_birth.register_a_birth(city)
 			elif choice == "2":
 				register_marriage.register_marriage(city)
 			elif choice == "3":
