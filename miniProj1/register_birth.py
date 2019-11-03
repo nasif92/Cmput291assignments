@@ -69,7 +69,7 @@ def getBirthInfo(regplace):
 	connection.commit()
 	regno = getUnique("births", "regno") # getting a unique registration number
 
-	return regno, fname, lname, regdate, regplace, gender, f_fname.capitalize(), f_lname.capitalize(), m_fname.capitalize(), m_lname.capitalize()
+	return regno, fname.capitalize(), lname.capitalize(), regdate, regplace, gender, f_fname.capitalize(), f_lname.capitalize(), m_fname.capitalize(), m_lname.capitalize()
 
 
 def register_a_birth(regplace):
@@ -80,10 +80,10 @@ def register_a_birth(regplace):
 	cursor.execute("PRAGMA foreign_keys=ON;")
 	connection.commit()
 
-	prompt = input ("Register for birth? (y/n)")
+	prompt = input ("Register for birth? (y/n): ")
 	# have to find a unique registration number too
 	if prompt == 'Y' or prompt == 'y':
-		print("Putting into births database ...")			
+		print("\nPutting into births database ...\n")			
 		# register that new person into registry
 		birth_data = getBirthInfo(regplace)
 		if birth_data != False:
