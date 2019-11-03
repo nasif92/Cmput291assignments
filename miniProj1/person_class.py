@@ -42,8 +42,6 @@ def getPerson(fname, lname):
 			isPresent = True
 	return isPresent
 
-# not functional here
-# this function takes all the input in for a new birth
 
 def connect(path):
     global connection, cursor
@@ -67,16 +65,7 @@ def getUnique(table, key):
 			return int(x)+1
 	else:
 		return 1
-#getting parents information like phone and address
-# don't think it's necessary anymore
-def getParentInfo(fname, lname):
-	global cursor, connection
-	data = (fname, lname,)
-	cursor.execute('''SELECT persons.address, persons.phone from persons, births
-					WHERE births.m_fname = persons.fname AND births.m_lname = persons.lname
-					AND births.fname = ? COLLATE NOCASE AND births.lname = ? COLLATE NOCASE''' ,data)
-	parent = cursor.fetchone()
-	return parent
+
 
 def getDate():
 	now = datetime.datetime.now()
