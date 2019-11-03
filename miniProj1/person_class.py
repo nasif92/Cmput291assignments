@@ -35,7 +35,7 @@ def createPerson(fname, lname, child):
 def getPerson(fname, lname):
 	global connection, cursor
 	isPresent = False
-	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? AND lname = ? COLLATE NOCASE''',(fname, lname,))
+	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? COLLATE NOCASE AND lname = ? COLLATE NOCASE''',(fname, lname,))
 	personName = cursor.fetchall()
 	for person in personName:
 		if person[0].capitalize() == fname.capitalize() and person[1].capitalize() == lname.capitalize():
