@@ -50,13 +50,15 @@ def login_screen():
 	while valid == False:
 		print("\nEnter login details, or q to close the program:")
 		uid = input("User ID: ")
+		if uid == "q":
+			utype = "q"
+			print("\nHave a nice day! \n")
+			break
 		uid = uid.lower()
 		pwd = getpass.getpass(prompt="Password: ")
 		print()
 
-		if uid == "q" or pwd == "q":
-			utype = "q"
-			break
+		
 		
 		cursor.execute("select utype, city from users where uid=? COLLATE NOCASE and pwd=?", (uid, pwd))
 		rows = cursor.fetchall()

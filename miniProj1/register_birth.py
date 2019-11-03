@@ -39,7 +39,7 @@ def getBirthInfo(regplace):
 		print("\nFather's information not in database. \nPlease provide the required information for creating a new person")
 		father = createPerson(f_fname.capitalize(),f_lname.capitalize(),False)
 		cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',father) # have to push parents to database
-		print("Done! You created the father's information")
+		print("\nDone! You created the father's information\n")
 	given = False
 	while not given: # check for first name and last name
 		m_fname = input ("Mother's first name: ")
@@ -57,14 +57,14 @@ def getBirthInfo(regplace):
 		phone = info[0][1] # mother's phone
 		
 	else:
-		print("Mother is not there in your database. \nPlease provide the required information for creating a new person")
+		print("\nMother is not there in your database. \nPlease provide the required information for creating a new person\n")
 		mother = createPerson(m_fname.capitalize(), m_lname.capitalize(),False)
 		address = mother[4]  # mother's address
 		phone = mother[5] # mother's phone
 		cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',mother) # have to push parents to database
-		print("Done! You created the mother's information")
+		print("\nDone! You created the mother's information\n")
 	#putting child into database
-	cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',(fname, lname, bdate, bplace,address,phone)) 
+	cursor.execute('''INSERT INTO persons VALUES (?,?,?,?,?,?)''',(fname.capitalize(), lname.capitalize(), bdate, bplace,address,phone)) 
 	regdate = getDate()
 	connection.commit()
 	regno = getUnique("births", "regno") # getting a unique registration number
