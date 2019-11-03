@@ -27,11 +27,11 @@ def find_car_owner():
 		parameters = []
 		if make != "":
 			finalQuery += "make=? and "
-			parameters.append(make)
+			parameters.append(make.capitalize())
 			success = True
 		if model != "":
 			finalQuery += "model=? and "
-			parameters.append(model)
+			parameters.append(model.capitalize())
 			success = True
 		if year != "":
 			finalQuery += "year=? and "
@@ -39,7 +39,7 @@ def find_car_owner():
 			success = True
 		if color != "":
 			finalQuery += "color=? and "
-			parameters.append(color)
+			parameters.append(color.lower())
 			success = True
 		if plate != "":
 			finalQuery += "plate=? and "
