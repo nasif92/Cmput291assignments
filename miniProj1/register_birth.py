@@ -6,6 +6,8 @@ from person_class import createPerson, getPerson, getDate, getUnique
 connection = None
 cursor = None
 
+# function for getting all the information about birth and returning all the information
+# it also checks if a person is already in database or not, if not, it creates a new record of person
 def getBirthInfo(regplace):
 	global connection, cursor
 	given = False
@@ -13,7 +15,10 @@ def getBirthInfo(regplace):
 	while not given:
 		fname = input("First name: ")
 		lname = input("Last name: ")
-		if fname != "" and lname != "":
+		if getPerson(fname, lname):
+			print("Sorry, the person named %s %s is already in the database" %(fname, lname))
+			return False
+		elif fname != "" and lname != "":
 			given = True
 		else:
 			print("\nPlease input child's first name and last name.\n")
@@ -44,7 +49,7 @@ def getBirthInfo(regplace):
 		else:
 			print("You have to input mother's both first name and last name")
 	if (getPerson(m_fname, m_lname)): # if mother is not there get her information
-		print("Mother's information is present in database")
+		print("\nMother's information is present in database\n")
 		cursor.execute('''SELECT address,phone from persons WHERE fname = ? COLLATE NOCASE AND lname = ?
 		COLLATE NOCASE''',(m_fname.capitalize(),m_lname.capitalize()))
 		info = cursor.fetchall()
@@ -63,7 +68,6 @@ def getBirthInfo(regplace):
 	regdate = getDate()
 	connection.commit()
 	regno = getUnique("births", "regno") # getting a unique registration number
-	#regplace = 'Test' # this is going to be the user's registration place
 
 	return regno, fname, lname, regdate, regplace, gender, f_fname.capitalize(), f_lname.capitalize(), m_fname.capitalize(), m_lname.capitalize()
 
@@ -79,12 +83,18 @@ def register_a_birth(regplace):
 	prompt = input ("Register for birth? (y/n)")
 	# have to find a unique registration number too
 	if prompt == 'Y' or prompt == 'y':
-		print("Putting into births database ...")
+		print("Putting into births database ...")			
 		# register that new person into registry
-		cursor.execute('''INSERT or replace INTO births
-		VALUES (?,?,?,?,?,?,?,?,?,?);''', getBirthInfo(regplace))
-		# create a person				
-		connection.commit()
-		print("\nBirth successfully registered.\n")
+		birth_data = getBirthInfo(regplace)
+		if birth_data != False:
+			cursor.execute('''INSERT or replace INTO births
+			VALUES (?,?,?,?,?,?,?,?,?,?);''', birth_data)
+			# create a person				
+			connection.commit()
+			print("\nBirth successfully registered.\n")
+
+		else:
+			print("\nExiting prompt...\n")
 	else:
 		print("\nExiting prompt...\n")
+
