@@ -26,11 +26,9 @@ def register_marriage(regplace):
 		else:
 			print("\nPerson named %s %s is not in the database. \nPlease provide the required information for creating a new person" %(p1_fname,p1_lname))
 			print()
-			# msg = "Record new information for " + p1_fname + " " + p1_lname + "? (y/n) "
 			choice = input("Record new information for father? (y/n) ")
 			choice = choice.lower()
 			if choice != "y":
-				# print(choice)
 				return False
 			
 			partner1 = createPerson(p1_fname,p1_lname, False)
@@ -52,7 +50,6 @@ def register_marriage(regplace):
 		else:
 			print("\nPerson named %s %s is not in the database. \nPlease provide the required information for creating a new person" %(p2_fname,p2_lname))
 			print()
-			# msg = "Record new information for " + p2_fname + " " + p2_lname + "? (y/n) "
 			choice = input("Record new information for mother? (y/n) ")
 			choice = choice.lower()
 			if choice != "y":
@@ -65,8 +62,9 @@ def register_marriage(regplace):
 
 		regno = getUnique("marriages","regno")
 		regdate = getDate()
-		# print(regplace)
-		cursor.execute('''INSERT or REPLACE INTO marriages VALUES(?,?,?,?,?,?,?)''',(regno, regdate, regplace, p1_fname, p1_lname, p2_fname, p2_lname))
+
+		# needed to capitalize to get rid of foreign constraint
+		cursor.execute('''INSERT or REPLACE INTO marriages VALUES(?,?,?,?,?,?,?)''',(regno, regdate, regplace, p1_fname.capitalize(), p1_lname.capitalize(), p2_fname.capitalize(), p2_lname.capitalize()))
 		connection.commit()
 		print("\nMarriage of", p1_fname, p1_lname, "and", p2_fname, p2_lname, "successfully registed.\n")
 		
