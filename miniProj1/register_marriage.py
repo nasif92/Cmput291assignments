@@ -26,9 +26,10 @@ def register_marriage(regplace):
 		else:
 			print("\nPerson named %s %s is not in the database. \nPlease provide the required information for creating a new person" %(p1_fname,p1_lname))
 			print()
-			choice = input("Record new information for father? (y/n) ")
+			choice = input("Record new information for partner 1? (y/n): ")
 			choice = choice.lower()
 			if choice != "y":
+				print("\nExiting\n")
 				return False
 			
 			partner1 = createPerson(p1_fname,p1_lname, False)
@@ -50,9 +51,10 @@ def register_marriage(regplace):
 		else:
 			print("\nPerson named %s %s is not in the database. \nPlease provide the required information for creating a new person" %(p2_fname,p2_lname))
 			print()
-			choice = input("Record new information for mother? (y/n) ")
+			choice = input("Record new information for partner 2? (y/n): ")
 			choice = choice.lower()
 			if choice != "y":
+				print("\nExiting\n")
 				return False
 
 			partner2 = createPerson(p2_fname,p2_lname,False)

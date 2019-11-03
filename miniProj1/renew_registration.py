@@ -32,6 +32,7 @@ def renew_registration():
 			else:
 				newDate = str(int(expiry[0][0:4]) + 1) + expiry[0][4:]
 			cursor.execute('''UPDATE registrations set regdate=?, expiry = ? WHERE regno = ?''',(currentDate, newDate, regno))
+			print("\nRenewed!\n")
 			connection.commit()
 		except:
 			print("Given registration number %s is not present in database" %regno)
