@@ -26,11 +26,15 @@ def find_car_owner():
 
 		parameters = []
 		if make != "":
-			finalQuery += "make=? and "
-			parameters.append(make.capitalize())
-			success = True
+			finalQuery += "make=?  COLLATE NOCASE and "
+			try:
+				parameters.append(make.capitalize())
+				success = True
+			except:
+				print("\nInvalid input in make\n")
+				success = False
 		if model != "":
-			finalQuery += "model=? and "
+			finalQuery += "model=? COLLATE NOCASE and "
 			parameters.append(model.capitalize())
 			success = True
 		if year != "":
@@ -38,7 +42,7 @@ def find_car_owner():
 			parameters.append(year)
 			success = True
 		if color != "":
-			finalQuery += "color=? and "
+			finalQuery += "color=? COLLATE NOCASE and "
 			parameters.append(color.lower())
 			success = True
 		if plate != "":
