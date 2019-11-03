@@ -58,7 +58,7 @@ def login_screen():
 			utype = "q"
 			break
 		
-		cursor.execute("select utype, city from users where uid=? and pwd=?", (uid, pwd))
+		cursor.execute("select utype, city from users where uid=? COLLATE NOCASE and pwd=?", (uid, pwd))
 		rows = cursor.fetchall()
 		if not rows:
 			print("The User Id and Password combination did not return any results.")
