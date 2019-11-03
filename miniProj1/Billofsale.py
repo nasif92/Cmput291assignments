@@ -32,13 +32,13 @@ def bill_of_sale():
 
 	selected_fname = input("Provide the first name of the current owner: ")
 
-	if selected_fname != fname:
+	if selected_fname.capitalize() != fname:
 		print("You entered the incorrect first name of the owner, exiting function.")
 		return False
 
 	selected_lname = input("Provide the last name of the current owner: ")
 
-	if selected_lname != lname:
+	if selected_lname.capitalize() != lname:
 		print("You entered the incorrect last name of the owner, exiting function.")
 		return False
 
@@ -49,7 +49,7 @@ def bill_of_sale():
 
 	cursor.execute('''select fname, lname
 					  from persons
-					  where fname=? AND lname=?''', [select_owner_fname, select_owner_lname])
+					  where fname=? COLLATE NOCASE AND lname=? COLLATE NOCASE''', [select_owner_fname, select_owner_lname])
 
 	result = cursor.fetchone()
 
@@ -75,7 +75,7 @@ def bill_of_sale():
 	while loop:
 		regno = random.sample(range(100000000, 999999999), 1)[0]
 		try:	
-			cursor.execute("INSERT INTO registrations values(?,?,?,?,?,?,?)", (regno, owner_regdate, owner_expiry, plate, vin, select_owner_fname, select_owner_lname))
+			cursor.execute("INSERT INTO registrations values(?,?,?,?,?,?,?)", (regno, owner_regdate, owner_expiry, plate, vin, select_owner_fname.capitalize(), select_owner_lname.capitalize()))
 			connection.commit()
 			print("\nsuccess!\n")
 			loop = 0
