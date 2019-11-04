@@ -471,6 +471,7 @@ def find_car_owner():
 		else:
 			finalQuery = finalQuery[:-5]
 			# finalQuery += " COLLATE NOCASE"
+			finalQuery += " GROUP BY plate"
 			# print(finalQuery)
 			cursor.execute(finalQuery, parameters)
 			rows = cursor.fetchall()
@@ -491,6 +492,7 @@ def find_car_owner():
 				num = 1
 				for match in rows:
 					print(str(num)+".", end=" ")
+					# print(match[5])
 					for i in range(len(match)):
 						if i in [0, 1, 2, 3, 4]:	
 							print(match[i], end=" ")
