@@ -471,7 +471,7 @@ def find_car_owner():
 		else:
 			finalQuery = finalQuery[:-5]
 			# finalQuery += " COLLATE NOCASE"
-			print(finalQuery)
+			# print(finalQuery)
 			cursor.execute(finalQuery, parameters)
 			rows = cursor.fetchall()
 			count = 0
