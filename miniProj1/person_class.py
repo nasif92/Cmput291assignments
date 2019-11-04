@@ -1,15 +1,18 @@
 import sqlite3
 import random, datetime
+import system
 
-connection = None
-cursor = None
+
 
 # function for creating a person
 # persons(fname, lname, bdate, bplace, address, phone) 
 # creating a return with the info so that insertion of parameters are unnecessary
 # important!!! phone and address not given here for the first operation
 def createPerson(fname, lname, child):
-	global connection, cursor
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
+
 	if fname == "" or lname == "":
 		given = False
 		while not given:
@@ -28,14 +31,15 @@ def createPerson(fname, lname, child):
 	if not child:
 		address = input("Enter address: ")
 		phone = input ("Enter phone: ")
-	return fname, lname, bdate, bplace, address, phone
+	return fname.capitalize(), lname.capitalize(), bdate, bplace, address, phone
 
 
 # function for checking if a person is existent or not in the Person class
 def getPerson(fname, lname):
-	global connection, cursor
+	global connection, cursor, database
+	cursor = system.cursor
 	isPresent = False
-	cursor.execute('''SELECT fname, lname from persons WHERE fname = ? COLLATE NOCASE AND lname = ? COLLATE NOCASE''',(fname, lname,))
+	system.cursor.execute('''SELECT fname, lname from persons WHERE fname = ? COLLATE NOCASE AND lname = ? COLLATE NOCASE''',(fname, lname,))
 	personName = cursor.fetchall()
 	for person in personName:
 		if person[0].capitalize() == fname.capitalize() and person[1].capitalize() == lname.capitalize():
@@ -43,18 +47,12 @@ def getPerson(fname, lname):
 	return isPresent
 
 
-def connect(path):
-    global connection, cursor
-
-    connection = sqlite3.connect(path)
-    cursor = connection.cursor()
-    cursor.execute(' PRAGMA foreign_keys=ON; ')
-    connection.commit()
-    return
 
 # this one takes in table and executes and gives a unique key plus 1 the old one
 def getUnique(table, key):
-	global cursor, connection
+	global cursor, connection, database
+	cursor = system.cursor
+
 	# this is for checking if a key is already present
 	# probably not required
 	#main functionality
@@ -72,7 +70,3 @@ def getDate():
 	date = now.strftime("%Y-%m-%d")
 	return date
 
-def main():
-	global connection, cursor
-	connect("./mp1.db")
-main()

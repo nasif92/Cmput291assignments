@@ -1,12 +1,12 @@
 import sqlite3
 import random
 import datetime
-
+import system
 def process_payment():
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
+
 
 	# tickets(tno, regno, fine, violation, vdate)
 	# payments(tno, pdate, amount)

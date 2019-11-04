@@ -1,12 +1,12 @@
 import sqlite3
 import datetime
 import random
+import system
 
 def bill_of_sale():
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
 
 	print()
 	vin_chosen = input("Please provide the vin of a car: ")

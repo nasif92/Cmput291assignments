@@ -1,14 +1,13 @@
 import sqlite3
 import random
 import time
+import system
 
 def issue_ticket():
-	# global cursor, connection
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
 
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
 	try: 
 		regno = int(input("Please provide a registration number to view information: "))
 		cursor.execute('''select fname, lname, make, model, year, color 
@@ -55,6 +54,6 @@ def issue_ticket():
 			except sqlite3.IntegrityError as nonUniqueTNO:
 				print("An error occured while generating a TNO. Please try again.")
 	except:
-		print("\nYou put an invalid registration number. \nExiting\n")
+		print("\nYou put an invalid registration number.\nExiting...\n")
 
 	return True

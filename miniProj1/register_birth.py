@@ -1,15 +1,13 @@
 import sqlite3
-import random, datetime
+import random, datetime, system
 from person_class import createPerson, getPerson, getDate, getUnique
-
-
-connection = None
-cursor = None
 
 # function for getting all the information about birth and returning all the information
 # it also checks if a person is already in database or not, if not, it creates a new record of person
 def getBirthInfo(regplace):
-	global connection, cursor
+	global connection, cursor, database
+	cursor = system.cursor
+	connection = system.connection
 	given = False
 	# check if child's information is given or not
 	while not given:
@@ -73,12 +71,9 @@ def getBirthInfo(regplace):
 
 
 def register_a_birth(regplace):
-	global cursor, connection
-
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
+	global cursor, connection, database
+	cursor = system.cursor
+	connection = system.connection
 
 	prompt = input ("Register for birth? (y/n): ")
 	# have to find a unique registration number too

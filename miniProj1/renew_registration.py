@@ -1,14 +1,14 @@
 import sqlite3
 import random, datetime
 from person_class import createPerson, getPerson, getDate, getUnique
-
+import system
 # registrations(regno, regdate, expiry, plate, vin, fname, lname)
 def renew_registration():
 
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
+
 	try:
 		regno = int(input("Enter a registration number to renew: "))
 	
