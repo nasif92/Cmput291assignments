@@ -1,14 +1,13 @@
 import sqlite3
 import random
 import time
+import system
 
 def find_car_owner():
-	# global cursor, connection
+	global connection, cursor,database
+	cursor = system.cursor
+	connection = system.connection
 
-	connection = sqlite3.connect("./mp1.db")
-	cursor = connection.cursor()
-	cursor.execute("PRAGMA foreign_keys=ON;")
-	connection.commit()
 	# user provides one or more of make, model, year, color, and plate.
 	
 	# will concatenate at least one condition according to provided input
