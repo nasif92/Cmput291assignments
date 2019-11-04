@@ -427,12 +427,13 @@ def find_car_owner():
 	# user provides one or more of make, model, year, color, and plate.
 	
 	# will concatenate at least one condition according to provided input
-	finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
-	   				from registrations r join vehicles v using(vin) 
-	   				where ''' 
+	
 	print()
 	success = False
 	while success == False:
+		finalQuery = '''select make, model, year, color, plate, regdate, expiry, fname, lname
+						from registrations r join vehicles v using(vin) 
+						where '''
 		make = input("make: ")
 		model = input("model: ")
 		year = input("year: ")
@@ -441,23 +442,23 @@ def find_car_owner():
 
 		parameters = []
 		if make != "":
-			finalQuery += "make=? and "
+			finalQuery += "make=? COLLATE NOCASE and "
 			parameters.append(make)
 			success = True
 		if model != "":
-			finalQuery += "model=? and "
-			parameters.append(model.capitalize())
+			finalQuery += "model=? COLLATE NOCASE and "
+			parameters.append(model)
 			success = True
 		if year != "":
 			finalQuery += "year=? and "
 			parameters.append(year)
 			success = True
 		if color != "":
-			finalQuery += "color=? and "
-			parameters.append(color.lower())
+			finalQuery += "color=? COLLATE NOCASE and "
+			parameters.append(color)
 			success = True
 		if plate != "":
-			finalQuery += "plate=? and "
+			finalQuery += "plate=? COLLATE NOCASE and "
 			parameters.append(plate)
 			success = True
 
@@ -469,8 +470,8 @@ def find_car_owner():
 				return False
 		else:
 			finalQuery = finalQuery[:-5]
-			finalQuery += " COLLATE NOCASE"
-			
+			# finalQuery += " COLLATE NOCASE"
+			print(finalQuery)
 			cursor.execute(finalQuery, parameters)
 			rows = cursor.fetchall()
 			count = 0
